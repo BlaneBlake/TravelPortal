@@ -19,6 +19,14 @@
     "login": "Zaloguj",
     "logout": "Wyloguj",
     "signup": "Załóż konto"
+  },
+
+  "userProfile": {
+    "username": "Nazwa użytkownika",
+    "firstName": "Imię",
+    "lastName": "Nazwisko",
+    "email": "e-mail",
+    "joinDate": "Data dołączenia"
   }
 
 }

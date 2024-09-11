@@ -4,6 +4,7 @@
 <h2> test: {{ texts.greeting }} </h2>
     <h3>URLs:</h3>
     <ul>
+        <a href="{% url 'Authentication:profile' %}">{{ texts.navigation.profile }}</a>
 
     </ul>
 {% endblock %}
