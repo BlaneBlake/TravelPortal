@@ -1,0 +1,68 @@
+
+{% load static %}
+<!Doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}TravelPortal{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+
+        <header>
+        {% block header %}
+<!--            <h1>TravelPortal</h1>-->
+            <h1>!! {{ texts.site.name }}</h1>
+            <p><a href="{% url 'Blog:home' %}">Strona główna</a></p>
+        {% endblock %}
+        </header>
+
+        <nav>
+        {% block navigation %}
+
+
+
+        {% endblock %}
+        </nav>
+
+        <div class="content">
+        {% block content %}
+
+        {% endblock %}
+        </div>
+
+        <footer>
+            {% block footer %}
+
+            {% endblock %}
+        </footer>
+
+        <div class="login">
+        {% block login %}
+
+            {% if user.is_authenticated %}
+
+                <form method="post" action="{% url 'Authentication:logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Wyloguj</button>
+                </form>
+
+            {% else %}
+
+                <form method="post" action="{% url 'Authentication:login' %}">
+                    {% csrf_token %}
+                    <button type="submit">Zaloguj się</button>
+                </form>
+
+                <form method="post" action="{% url 'Authentication:signup' %}">
+                    {% csrf_token %}
+                    <button type="submit">Załóż konto</button>
+                </form>
+
+            {% endif %}
+
+        {% endblock %}
+        </div>
+    </body>
+</html>

@@ -1,20 +1,13 @@
 {
-  "name": "pl",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "site": {
+    "name": "TravelPortal"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/BlaneBlake/TravelPortal.git"
-  },
-  "private": true,
 
-
-
-  "greeting": "Witaj",
+  "greeting": "Witaj na stronie domowej",
   "farewell": "Do widzenia",
-  "home": "Strona główna"
+  "home": "Strona główna",
+
+  "form": {
+    "send": "Wyślij"
+  }
 }

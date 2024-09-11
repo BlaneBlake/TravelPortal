@@ -1,0 +1,45 @@
+body {
+    display: grid;
+    grid-template-areas:
+        "header login"
+        "navigation navigation"
+        "content content"
+        "footer footer";
+    grid-template-columns: 3fr 1fr ;
+    grid-template-rows: auto 50px  1fr auto;
+    height: 100vh;
+    margin: 0;
+    gap: 0px;
+}
+header {
+    grid-area: header;
+    background: lightgray;
+    padding: 10px;
+}
+.login {
+    grid-area: login;
+    background: lightgray;
+    padding: 10px;
+    text-align: right;
+}
+nav {
+    grid-area: navigation;
+    background: lightgray;
+    padding: 10px;
+    height: 40px;
+    box-sizing: border-box;
+}
+.content {
+    grid-area: content;
+    background: white;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+footer {
+    grid-area: footer;
+    background: lightgray;
+    padding: 10px;
+    height: 80px; /* Ustawienie wysokości sekcji footer */
+    box-sizing: border-box; /* Zapewnienie, że padding jest uwzględniony w wysokości */
+}
