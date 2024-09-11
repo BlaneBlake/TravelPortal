@@ -8,17 +8,27 @@
   "home": "Strona główna",
 
   "form": {
-    "send": "Wyślij"
+    "send": "Wyślij",
+    "addPost": "Dodaj post"
   },
 
   "navigation": {
-    "profile": "Profil użytkownika"
+    "profile": "Profil użytkownika",
+    "addPost": "Dodaj nowy post"
   },
 
   "authentication":{
     "login": "Zaloguj",
     "logout": "Wyloguj",
     "signup": "Załóż konto"
+  },
+
+  "blog": {
+    "posts": "Posty",
+    "emptyPostsList": "Brak postów do wyświetlenia.",
+    "postAuthor": "Autor",
+    "createdDate": "Data utworzenia",
+    "returnToPostList": "Powrót do listy postów"
   },
 
   "userProfile": {

@@ -1,0 +1,15 @@
+{% extends "../base.html" %}
+
+{% block content %}
+  <h2>{{ texts.blog.posts }}</h2>
+  <ul>
+    {% for post in posts %}
+      <li>
+        <a href="{% url 'Blog:post_detail' post.id %}">{{ post.title }}</a> - {{ post.created_at|date:"d M Y" }}
+      </li>
+    {% empty %}
+      <li>{{ texts.blog.emptyPostsList }}</li>
+    {% endfor %}
+  </ul>
+    <a href="{% url 'Blog:post_create' %}">{{ texts.navigation.addPost }}</a>
+{% endblock %}
