@@ -25,7 +25,10 @@
 
   "blog": {
     "posts": "Posty",
-    "emptyPostsList": "Brak postów do wyświetlenia."
+    "emptyPostsList": "Brak postów do wyświetlenia.",
+    "postAuthor": "Autor",
+    "createdDate": "Data utworzenia",
+    "returnToPostList": "Powrót do listy postów"
   },
 
   "userProfile": {
