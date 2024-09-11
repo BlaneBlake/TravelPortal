@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import json
 from pathlib import Path
 
 import os
@@ -131,6 +131,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+LOGIN_URL = 'login/'
 LOGIN_REDIRECT_URL = "Blog:home"
 LOGOUT_REDIRECT_URL = "Authentication:login"
 
@@ -138,3 +139,9 @@ LOGOUT_REDIRECT_URL = "Authentication:login"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# global variables:
+
+# language files
+with open('lang/lang_pl.json', 'r', encoding='utf-8') as file:
+    TEXTS = json.load(file)

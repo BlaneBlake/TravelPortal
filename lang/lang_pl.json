@@ -9,5 +9,16 @@
 
   "form": {
     "send": "Wyślij"
+  },
+
+  "navigation": {
+    "profile": "Profil użytkownika"
+  },
+
+  "authentication":{
+    "login": "Zaloguj",
+    "logout": "Wyloguj",
+    "signup": "Załóż konto"
   }
+
 }

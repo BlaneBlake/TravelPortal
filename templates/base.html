@@ -5,22 +5,21 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}TravelPortal{% endblock %}</title>
+        <title>{% block title %}{{ texts.site.name }}{% endblock %}</title>
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
     </head>
     <body>
 
         <header>
         {% block header %}
-<!--            <h1>TravelPortal</h1>-->
-            <h1>!! {{ texts.site.name }}</h1>
-            <p><a href="{% url 'Blog:home' %}">Strona główna</a></p>
+            <h1>{{ texts.site.name|default:"No texts available" }}</h1>
+            <p><a href="{% url 'Blog:home' %}">{{ texts.home }}</a></p>
         {% endblock %}
         </header>
 
         <nav>
         {% block navigation %}
-
+            <a href="{% url 'profile' %}">{{ texts.navigation.profile }}</a>
 
 
         {% endblock %}
@@ -45,19 +44,19 @@
 
                 <form method="post" action="{% url 'Authentication:logout' %}">
                     {% csrf_token %}
-                    <button type="submit">Wyloguj</button>
+                    <button type="submit">{{ texts.authentication.logout }}</button>
                 </form>
 
             {% else %}
 
                 <form method="post" action="{% url 'Authentication:login' %}">
                     {% csrf_token %}
-                    <button type="submit">Zaloguj się</button>
+                    <button type="submit">{{ texts.authentication.login }}</button>
                 </form>
 
                 <form method="post" action="{% url 'Authentication:signup' %}">
                     {% csrf_token %}
-                    <button type="submit">Załóż konto</button>
+                    <button type="submit">{{ texts.authentication.signup }}</button>
                 </form>
 
             {% endif %}

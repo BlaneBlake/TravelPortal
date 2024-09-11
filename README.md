@@ -1,6 +1,6 @@
 # TravelPortal
 
-.env instruction:
+# .env instruction:
 
     need .env file with:
         """
@@ -19,4 +19,10 @@
         print(os.getenv('DATABASE_PASS'))
         """
 
-in requirements.txt is every needed programs to install on server
+# Installation of required programs
+    in requirements.txt is every needed programs to install on server
+    >> pip install -r requirements. txt 
+
+# TextsMixin must be declared before View in another case texts doesn't work on site
+    class ClassView(TextsMixin, LoginRequiredMixin, TemplateView):
+        template_name = 'template.html'
