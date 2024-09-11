@@ -8,7 +8,7 @@ from TravelPortal.mixins.context_mixins import TextsMixin
 
 # Create your views here.
 
-class HomePageView(TextsMixin, LoginRequiredMixin, TemplateView):
+class HomePageView(TextsMixin, TemplateView):
     template_name = 'blog/home.html'
 
 class Test(TextsMixin, TemplateView):

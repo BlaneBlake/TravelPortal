@@ -4,6 +4,7 @@ from django.views import View
 from django.urls import reverse_lazy
 from django.views.generic import FormView, DetailView
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from Authentication.forms import MyUserCreationForm
@@ -23,9 +24,14 @@ class SignUpView(TextsMixin, FormView):
         form.save()
         return super().form_valid(form)
 
-class UserProfileView(TextsMixin, LoginRequiredMixin, DetailView):
 
+class UserProfileView(LoginRequiredMixin, TextsMixin, DetailView):
+    model = User
+    template_name = 'registration/user_profile.html'
+    context_object_name = 'user_profile'
 
+    def get_object(self, queryset=None):
+        return self.request.user
 
 
 class Test(View):

@@ -19,7 +19,8 @@
 
         <nav>
         {% block navigation %}
-            <a href="{% url 'profile' %}">{{ texts.navigation.profile }}</a>
+            <a href="{% url 'Authentication:profile' %}">{{ texts.navigation.profile }}</a>
+<!--           1. lista archiwalnych postów -->
 
 
         {% endblock %}
