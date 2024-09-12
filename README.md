@@ -26,3 +26,8 @@
 # TextsMixin must be declared before View in another case texts doesn't work on site
     class ClassView(TextsMixin, LoginRequiredMixin, TemplateView):
         template_name = 'template.html'
+
+# tags support via django-taggit library
+
+# !!! on production server probably must change media files configuration, now it works in developer mode
+

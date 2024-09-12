@@ -24,3 +24,10 @@ urlpatterns = [
     path('', include(('Authentication.urls', 'Authentication'), 'Authentication')),
     path('', include(('Blog.urls', 'Blog'), 'Blog')),
 ] + static(settings.STATIC_URL)
+
+# if settings.DEBUG:: Upewniamy się, że pliki multimedialne są serwowane tylko w trybie developerskim, gdy DEBUG=True.
+# W środowisku produkcyjnym serwowanie plików statycznych i multimedialnych powinno być obsługiwane przez serwer WWW,
+# taki jak nginx lub Apache.
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

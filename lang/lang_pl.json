@@ -9,7 +9,8 @@
 
   "form": {
     "send": "Wyślij",
-    "addPost": "Dodaj post"
+    "addPost": "Dodaj post",
+    "addPhoto": "Dodaj zdjęcie"
   },
 
   "navigation": {
@@ -28,7 +29,10 @@
     "emptyPostsList": "Brak postów do wyświetlenia.",
     "postAuthor": "Autor",
     "createdDate": "Data utworzenia",
-    "PostList": "Lista postów"
+    "postList": "Lista postów",
+    "tags": "tagi",
+    "estimatedTime": "Czas zwiedzania",
+    "gallery": "Galeria"
   },
 
   "userProfile": {

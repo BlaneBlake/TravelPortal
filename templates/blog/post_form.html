@@ -2,7 +2,23 @@
 
 {% block content %}
 
-<h2>{{ texts.form.addPost }}</h2>
-{{ block.super }}
+
+
+    <form action="" method="POST" enctype="multipart/form-data">
+
+        <h2>{{ texts.form.addPost }}</h2>
+
+            {% csrf_token %}
+            {{ form.as_p }}
+
+        <h2>{{ texts.form.addPhoto }}</h2>
+
+            {{ images_formset.managment_form }}
+            {% for form in images_formset %}
+                {{ form.as_p }}
+            {% endfor %}
+
+        <input type="submit" value="{{ texts.form.addPost }}">
+    </form>
 
 {% endblock %}

@@ -1,12 +1,15 @@
+from lib2to3.fixes.fix_input import context
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
 from django.views.generic import TemplateView, CreateView, ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.forms import modelformset_factory
 
-from .models import Post
-from .forms import PostForm
+from .models import Post, PostImage
+from .forms import PostForm, PostImageForm
 from TravelPortal.mixins.context_mixins import TextsMixin
 
 # Create your views here.
@@ -25,7 +28,30 @@ class PostCreateView(TextsMixin, LoginRequiredMixin, CreateView):
     
     def form_valid(self, form):
         form.instance.author = self.request.user
+        post = form.save()
+
+        images_formset = self.get_images_formset()
+        if images_formset.is_valid():
+            images = images_formset.save(commit=False)
+            for image in images:
+                image.post = post
+                image.save()
+
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        if self.request.POST:
+            data['images_formset'] = self.get_images_formset()
+        else:
+            data['images_formset'] = self.get_images_formset(empty=True)
+        return data
+
+    def get_images_formset(self, empty=False):
+        PostImageFormSet = modelformset_factory(PostImage, form=PostImageForm, extra=2)
+        if empty:
+            return PostImageFormSet(queryset=PostImage.objects.none())
+        return PostImageFormSet(self.request.POST, self.request.FILES)
 
 class PostListView(TextsMixin, ListView):
     model = Post
@@ -37,3 +63,9 @@ class PostDetailView(TextsMixin, DetailView):
     model = Post
     template_name = 'blog/post_detail.html'
     context_object_name = 'post'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['images'] = self.object.images.all()
+        context['tags'] = self.object.tags.all()
+        return context
