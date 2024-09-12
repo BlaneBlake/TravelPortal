@@ -28,7 +28,7 @@
     "emptyPostsList": "Brak postów do wyświetlenia.",
     "postAuthor": "Autor",
     "createdDate": "Data utworzenia",
-    "returnToPostList": "Powrót do listy postów"
+    "PostList": "Lista postów"
   },
 
   "userProfile": {
