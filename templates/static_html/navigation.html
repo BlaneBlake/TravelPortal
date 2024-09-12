@@ -1,0 +1,36 @@
+<div class="login">
+    {% if user.is_authenticated %}
+
+        <form method="post" action="{% url 'Authentication:logout' %}">
+            {% csrf_token %}
+            <button type="submit">{{ texts.authentication.logout }}</button>
+        </form>
+
+    {% else %}
+
+        <form method="post" action="{% url 'Authentication:login' %}">
+            {% csrf_token %}
+            <button type="submit">{{ texts.authentication.login }}</button>
+        </form>
+
+        <form method="post" action="{% url 'Authentication:signup' %}">
+            {% csrf_token %}
+            <button type="submit">{{ texts.authentication.signup }}</button>
+        </form>
+
+    {% endif %}
+</div>
+
+
+<nav>
+    {% if user.is_authenticated %}
+        <a href="{% url 'Authentication:profile' %}">{{ texts.navigation.profile }}</a>
+        <a href="{% url 'Blog:post_create' %}">{{ texts.navigation.addPost }}</a>
+        <a href="{% url 'Blog:post_list' %}">{{ texts.blog.PostList }}</a>
+    {% else %}
+        <a href="{% url 'Blog:post_list' %}">{{ texts.blog.PostList }}</a>
+    {% endif %}
+</nav>
+
+
+

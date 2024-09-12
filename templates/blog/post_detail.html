@@ -5,5 +5,5 @@
   <p>{{ post.content }}</p>
   <p><strong>{{ texts.blog.postAuthor }}:</strong> {{ post.author.username }}</p>
   <p><strong>{{ texts.blog.createdDate }}:</strong> {{ post.created_at|date:"d M Y" }}</p>
-  <a href="{% url 'Blog:post_list' %}">{{ texts.blog.returnToPostList }}</a>
+  <a href="{% url 'Blog:post_list' %}">{{ texts.blog.PostList }}</a>
 {% endblock %}

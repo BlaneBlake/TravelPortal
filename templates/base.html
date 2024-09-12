@@ -3,68 +3,34 @@
 <!Doctype html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}{{ texts.site.name }}{% endblock %}</title>
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        {% block head %}
+            {% include 'static_html/head.html' %}
+        {% endblock %}
     </head>
     <body>
 
-        <header>
         {% block header %}
-            <h1>{{ texts.site.name|default:"No texts available" }}</h1>
-            <p><a href="{% url 'Blog:home' %}">{{ texts.home }}</a></p>
+            {% include 'static_html/header.html' %}
         {% endblock %}
-        </header>
 
-        <nav>
+
         {% block navigation %}
-            <a href="{% url 'Authentication:profile' %}">{{ texts.navigation.profile }}</a>
-            <a href="{% url 'Blog:post_create' %}">{{ texts.navigation.addPost }}</a>
-            <a href="{% url 'Blog:post_list' %}">{{ texts.blog.returnToPostList }}</a>
-<!--           1. lista archiwalnych postów -->
-
-
+            {% include 'static_html/navigation.html' %}
         {% endblock %}
-        </nav>
+
 
         <div class="content">
-        {% block content %}
-
-        {% endblock %}
-        </div>
-
-        <footer>
-            {% block footer %}
+            {% block content %}
 
             {% endblock %}
-        </footer>
-
-        <div class="login">
-        {% block login %}
-
-            {% if user.is_authenticated %}
-
-                <form method="post" action="{% url 'Authentication:logout' %}">
-                    {% csrf_token %}
-                    <button type="submit">{{ texts.authentication.logout }}</button>
-                </form>
-
-            {% else %}
-
-                <form method="post" action="{% url 'Authentication:login' %}">
-                    {% csrf_token %}
-                    <button type="submit">{{ texts.authentication.login }}</button>
-                </form>
-
-                <form method="post" action="{% url 'Authentication:signup' %}">
-                    {% csrf_token %}
-                    <button type="submit">{{ texts.authentication.signup }}</button>
-                </form>
-
-            {% endif %}
-
-        {% endblock %}
         </div>
+
+
+        {% block footer %}
+            {% include 'static_html/footer.html' %}
+        {% endblock %}
+
+
+
     </body>
 </html>
