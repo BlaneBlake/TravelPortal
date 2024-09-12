@@ -31,3 +31,6 @@
 
 # !!! on production server probably must change media files configuration, now it works in developer mode
 
+
+# do poprawy:
+    estimated time wybierany z listy, a nie wpisywany
