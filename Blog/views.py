@@ -7,6 +7,7 @@ from django.views.generic import TemplateView, CreateView, ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.forms import modelformset_factory
+from django.conf import settings
 
 from .models import Post, PostImage
 from .forms import PostForm, PostImageForm
@@ -41,10 +42,15 @@ class PostCreateView(TextsMixin, LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
+
         if self.request.POST:
             data['images_formset'] = self.get_images_formset()
         else:
             data['images_formset'] = self.get_images_formset(empty=True)
+
+        # Add Google Maps API Key to the context
+        data['GOOGLE_MAPS_API_KEY'] = settings.GOOGLE_MAPS_API_KEY
+
         return data
 
     def get_images_formset(self, empty=False):

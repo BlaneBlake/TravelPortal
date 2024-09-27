@@ -146,6 +146,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # global variables:
 
+# Google Maps API Key
+GOOGLE_MAPS_API_KEY = os.getenv('GOOGLE_MAPS_API_KEY')
+
 # language files
 with open('lang/lang_pl.json', 'r', encoding='utf-8') as file:
     TEXTS = json.load(file)
