@@ -33,4 +33,13 @@
 
 
 # do poprawy:
-    estimated time wybierany z listy, a nie wpisywany
+    -estimated time wybierany z listy, a nie wpisywany
+    -dodać do lang_pl wbudowane opisy i zmienić na własne
+    -ukryte pola wymagają wypełnienia. czy tworzyć posty wprowadzane bez lokalizacji?
+    -tagi muszą być wprowadzone do tworzenia posta?
+
+    -Na razie chyba zrobię żeby mi dzieliło zdjęcia na foldery przypisane do konkretnych postów, a później i tak będę 
+    w tym jeszcze grzebał pewnie żeby ustawić wybieranie równego zdjęcia z kolekcji czy innych pierdółek. 
+    Teraz chcę po prostu zarys zrobić żeby nie pozniej nie musiec zmieniac calej mechaniki jak już ją odbuduję.
+    A przypisywanie zdjęć do miejsca też jest spoko pomysłem, może nie do katalogowania, 
+    ale zrobienia filtrowania galerii wszystkich zdjęć pod względem miejsc które prezentują

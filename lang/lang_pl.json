@@ -32,7 +32,9 @@
     "postList": "Lista postów",
     "tags": "tagi",
     "estimatedTime": "Czas zwiedzania",
-    "gallery": "Galeria"
+    "gallery": "Galeria",
+    "locationName": "Nazwa miejsca",
+    "viewOnGoogleMaps": "Widok na mapie"
   },
 
   "userProfile": {

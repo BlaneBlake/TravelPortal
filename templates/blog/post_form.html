@@ -1,8 +1,7 @@
 {% extends '../form.html' %}
-
+{% load static %}
+long
 {% block content %}
-
-
 
     <form action="" method="POST" enctype="multipart/form-data">
 
@@ -18,7 +17,26 @@
                 {{ form.as_p }}
             {% endfor %}
 
+        <!-- Mapa Google -->
+        <h3>Select a Location on the Map</h3>
+
+        <input type="text" id="place_name" name="place_name" placeholder="Place Name" value="{{ form.place_name.value }}" readonly>
+        <div id="map" style="width: 500px; height: 400px; padding: 5px; margin: 5px;"></div>
+
+        <!-- Hidden fields to store selected data -->
+        <input type="hidden" id="location_url" name="location_url" value="{{ form.location_url.value }}">
+        <input type="hidden" id="latitude" name="latitude" value="{{ form.latitude.value }}">
+        <input type="hidden" id="longitude" name="longitude" value="{{ form.longitude.value }}">
+
+
+
         <input type="submit" value="{{ texts.form.addPost }}">
     </form>
+
+    <!-- Script for Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&libraries=places&callback=initMap" async defer></script>
+
+    <!-- Load external JS file -->
+    <script src="{% static 'js/map-to-create-post.js' %}"></script>
 
 {% endblock %}

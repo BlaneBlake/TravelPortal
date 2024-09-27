@@ -8,6 +8,7 @@
   {% endif %}
 
   <h2>{{ post.title }}</h2>
+
   <p>{{ post.content }}</p>
 
   {% if images %}
@@ -19,9 +20,14 @@
     </div>
   {% endif %}
 
-  {% if post.location_link %}
-    <p><strong>{{ texts.blog.locationName }}:</strong> {{ post.location_name }}</p>
-    <p><a href="{{ post.location_link }}" target="_blank">{{ texts.blog.viewOnGoogleMaps }}</a></p>
+  {% if post.location_url %}
+    <p><strong>{{ texts.blog.locationName }}:</strong> {{ post.place_name }}</p>
+    <p><a href="{{ post.location_url }}" target="_blank">{{ texts.blog.viewOnGoogleMaps }}</a></p>
+
+<!--  czy tworzyć posty wprowadzane bez lokalizacji?  -->
+
+  {% elif post.place_name %}
+    <p><strong>{{ texts.blog.locationName }}:</strong> {{ post.place_name }}</p>
   {% endif %}
 
   {% if post.estimated_time %}
