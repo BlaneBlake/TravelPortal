@@ -6,12 +6,24 @@
   "greeting": "Witaj na stronie domowej",
   "farewell": "Do widzenia",
   "home": "Strona główna",
+  "urls": "Przydatne odnośniki",
 
   "form": {
     "send": "Wyślij",
     "addPost": "Dodaj post",
-    "addPhoto": "Dodaj zdjęcie"
-  },
+    "addPhoto": "Dodaj zdjęcie",
+    "post": {
+      "title": "Tytuł",
+      "content": "Treść",
+      "mainImage": "Zdjęcie główne",
+      "tags": "Tagi",
+      "estimatedTime": "Szacowany czas",
+      "photo": "Zdjęcie",
+      "selectOnMap": "Wybierz lokalizację na mapie",
+      "enterEstimatedTime": "Czas w formacie GG:MM",
+      "estimatedTimeValidationError": "Popraw format na GG:MM"
+    }
+},
 
   "navigation": {
     "profile": "Profil użytkownika",

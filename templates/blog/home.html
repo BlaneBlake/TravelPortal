@@ -1,8 +1,8 @@
 {% extends "../base.html" %}
 
 {% block content %}
-<h2> test: {{ texts.greeting }} </h2>
-    <h3>URLs:</h3>
+<h2> {{ texts.greeting }} </h2>
+    <h3> {{ texts.urls }}: </h3>
     <ul>
         <a href="{% url 'Authentication:profile' %}">{{ texts.navigation.profile }}</a>
 

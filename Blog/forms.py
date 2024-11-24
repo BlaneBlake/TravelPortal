@@ -4,6 +4,8 @@ from django import forms
 from .models import Post, PostImage
 from taggit.forms import TagWidget
 
+from TravelPortal.settings import TEXTS
+
 class PostForm(forms.ModelForm):
 
     class Meta:
@@ -22,7 +24,14 @@ class PostForm(forms.ModelForm):
             'latitude': forms.HiddenInput(),
             'longitude': forms.HiddenInput(),
             'location_url': forms.HiddenInput(),
-            'estimated_time': forms.TextInput(attrs={'placeholder': 'Enter time in HH:MM format'}),
+            'estimated_time': forms.TextInput(attrs={'placeholder': TEXTS["form"]["post"]["enterEstimatedTime"]}),
+        }
+        labels = {
+            'title': TEXTS["form"]["post"]["title"],
+            'content': TEXTS["form"]["post"]["content"],
+            'main_image': TEXTS["form"]["post"]["mainImage"],
+            'tags': TEXTS["form"]["post"]["tags"],
+            'estimated_time': TEXTS["form"]["post"]["estimatedTime"],
         }
 
         def clean_estimated_time(self):
@@ -35,7 +44,7 @@ class PostForm(forms.ModelForm):
                     hours, minutes = map(int, estimated_time.split(':'))
                     return timedelta(hours=hours, minutes=minutes)
                 except ValueError:
-                    raise forms.ValidationError('Enter a valid time in HH:MM format.')
+                    raise forms.ValidationError(TEXTS["form"]["post"]["estimatedTimeValidationError"])
 
             return estimated_time
 
@@ -43,3 +52,6 @@ class PostImageForm(forms.ModelForm):
     class Meta:
         model = PostImage
         fields = ['image']
+        labels = {
+            'image': TEXTS["form"]["post"]["photo"],
+        }
