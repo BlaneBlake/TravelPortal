@@ -18,7 +18,7 @@ long
             {% endfor %}
 
         <!-- Mapa Google -->
-        <h3>Select a Location on the Map</h3>
+        <h3>{{ texts.form.post.selectOnMap }}</h3>
 
         <input type="text" id="place_name" name="place_name" placeholder="{{ texts.blog.locationName }}" value="{{ form.place_name.value }}" readonly>
         <div id="map" style="width: 500px; height: 400px; padding: 5px; margin: 5px;"></div>

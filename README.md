@@ -34,7 +34,7 @@
 
 # do poprawy:
     -estimated time wybierany z listy, a nie wpisywany
-    -dodać do lang_pl wbudowane opisy i zmienić na własne
+    -dodać do lang_pl wbudowane alerty błędów w formularzu i zmienić na własne
     -ukryte pola wymagają wypełnienia. czy tworzyć posty wprowadzane bez lokalizacji?
     -tagi muszą być wprowadzone do tworzenia posta?
 

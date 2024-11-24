@@ -12,8 +12,18 @@
     "send": "Wyślij",
     "addPost": "Dodaj post",
     "addPhoto": "Dodaj zdjęcie",
-    "enterEstimatedTime": "Czas w formacie GG:MM"
-  },
+    "post": {
+      "title": "Tytuł",
+      "content": "Treść",
+      "mainImage": "Zdjęcie główne",
+      "tags": "Tagi",
+      "estimatedTime": "Szacowany czas",
+      "photo": "Zdjęcie",
+      "selectOnMap": "Wybierz lokalizację na mapie",
+      "enterEstimatedTime": "Czas w formacie GG:MM",
+      "estimatedTimeValidationError": "Popraw format na GG:MM"
+    }
+},
 
   "navigation": {
     "profile": "Profil użytkownika",
