@@ -33,6 +33,9 @@
 
 
 # do poprawy:
+
+    -   PRZEBUDOWA SYSTEMU TŁUMACZEŃ NA WBUDOWANY W DJANGO
+
     -estimated time wybierany z listy, a nie wpisywany
     -dodać do lang_pl wbudowane alerty błędów w formularzu i zmienić na własne
     -ukryte pola wymagają wypełnienia. czy tworzyć posty wprowadzane bez lokalizacji?
