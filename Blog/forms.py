@@ -4,6 +4,8 @@ from django import forms
 from .models import Post, PostImage
 from taggit.forms import TagWidget
 
+from TravelPortal.settings import TEXTS
+
 class PostForm(forms.ModelForm):
 
     class Meta:
@@ -22,7 +24,7 @@ class PostForm(forms.ModelForm):
             'latitude': forms.HiddenInput(),
             'longitude': forms.HiddenInput(),
             'location_url': forms.HiddenInput(),
-            'estimated_time': forms.TextInput(attrs={'placeholder': 'Enter time in HH:MM format'}),
+            'estimated_time': forms.TextInput(attrs={'placeholder': TEXTS["form"]["enterEstimatedTime"]}),
         }
 
         def clean_estimated_time(self):
@@ -43,3 +45,6 @@ class PostImageForm(forms.ModelForm):
     class Meta:
         model = PostImage
         fields = ['image']
+        labels = {
+            'image': 'Zdjęcie',
+        }

@@ -6,11 +6,13 @@
   "greeting": "Witaj na stronie domowej",
   "farewell": "Do widzenia",
   "home": "Strona główna",
+  "urls": "Przydatne odnośniki",
 
   "form": {
     "send": "Wyślij",
     "addPost": "Dodaj post",
-    "addPhoto": "Dodaj zdjęcie"
+    "addPhoto": "Dodaj zdjęcie",
+    "enterEstimatedTime": "Czas w formacie GG:MM"
   },
 
   "navigation": {

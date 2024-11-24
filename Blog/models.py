@@ -30,3 +30,4 @@ class PostImage(models.Model):
 
     def __str__(self):
         return f'Image for post: {self.post.title}'
+
