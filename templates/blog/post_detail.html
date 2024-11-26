@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 
   {% if post.main_image %}
-    <h3>{{ texts.blog.mainImage }}</h3>
     <img src="{{ post.main_image.url }}" alt="Main image of {{ post.title }}">
   {% endif %}
 
@@ -12,7 +12,7 @@
   <p>{{ post.content }}</p>
 
   {% if images %}
-    <h3>{{ texts.blog.gallery }}</h3>
+    <h3>{% trans "Gallery" %}</h3>
     <div class="post-images">
       {% for image in images %}
         <img src="{{ image.image.url }}" alt="Image for {{ post.title }}">
@@ -21,24 +21,24 @@
   {% endif %}
 
   {% if post.location_url %}
-    <p><strong>{{ texts.blog.locationName }}:</strong> {{ post.place_name }}</p>
-    <p><a href="{{ post.location_url }}" target="_blank">{{ texts.blog.viewOnGoogleMaps }}</a></p>
+    <p><strong>{% trans "Location name" %}:</strong> {{ post.place_name }}</p>
+    <p><a href="{{ post.location_url }}" target="_blank">{% trans "View on map" %}</a></p>
 
 <!--  czy tworzyć posty wprowadzane bez lokalizacji?  -->
 
   {% elif post.place_name %}
-    <p><strong>{{ texts.blog.locationName }}:</strong> {{ post.place_name }}</p>
+    <p><strong>{% trans "Location name" %}:</strong> {{ post.place_name }}</p>
   {% endif %}
 
   {% if post.estimated_time %}
-    <p><strong>{{ texts.blog.estimatedTime }}:</strong> {{ post.estimated_time }}</p>
+    <p><strong>{% trans "Visiting time" %}:</strong> {{ post.estimated_time }}</p>
   {% endif %}
 
-  <p><strong>{{ texts.blog.postAuthor }}:</strong> {{ post.author.username }}</p>
-  <p><strong>{{ texts.blog.createdDate }}:</strong> {{ post.created_at|date:"d M Y" }}</p>
+  <p><strong>{% trans "Author" %}:</strong> {{ post.author.username }}</p>
+  <p><strong>{% trans "Creation date" %}:</strong> {{ post.created_at|date:"d M Y" }}</p>
 
   {% if tags %}
-    <h4>{{ texts.blog.tags }}:</h4>
+    <h4>{% trans "tags" %}:</h4>
     <ul>
       {% for tag in tags %}
         <li>{{ tag.name }}</li>
@@ -46,5 +46,5 @@
     </ul>
   {% endif %}
 
-  <a href="{% url 'Blog:post_list' %}">{{ texts.blog.postList }}</a>
+  <a href="{% url 'Blog:post_list' %}">{% trans "Post list" %}</a>
 {% endblock %}

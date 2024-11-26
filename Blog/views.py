@@ -13,10 +13,24 @@ from .models import Post, PostImage
 from .forms import PostForm, PostImageForm
 from TravelPortal.mixins.context_mixins import TextsMixin
 
+
+from django.utils.translation import get_language
+from django.utils.translation import gettext_lazy as _
+
 # Create your views here.
 
 class HomePageView(TextsMixin, TemplateView):
     template_name = 'blog/home.html'
+
+# Translation tests
+#     -----------------------
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['LANGUAGE_CODE'] = get_language()  # Bieżący język
+        context['LANGUAGES'] = settings.LANGUAGES  # Dostępne języki
+        return context
+#     -----------------------
+
 
 class Test(TextsMixin, TemplateView):
     template_name = 'test.html'
