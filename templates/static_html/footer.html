@@ -1,6 +1,7 @@
+{% load i18n %}
 
 <footer>
-    <p>stopka</p>
+    <p>{% trans "Footer" %}</p>
     <form action="/set_language/" method="post">
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ request.path }}" />
@@ -8,6 +9,6 @@
             <option value="pl" {% if LANGUAGE_CODE == 'pl' %}selected{% endif %}>Polski</option>
             <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>English</option>
         </select>
-        <button type="submit">Zmień język</button>
+        <button type="submit">{% trans "Change language" %}</button>
     </form>
 </footer>

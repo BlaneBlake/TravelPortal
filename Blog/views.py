@@ -15,6 +15,7 @@ from TravelPortal.mixins.context_mixins import TextsMixin
 
 
 from django.utils.translation import get_language
+from django.utils.translation import gettext_lazy as _
 
 # Create your views here.
 

@@ -34,10 +34,13 @@
 
 # do poprawy:
 
-    -   PRZEBUDOWA SYSTEMU TŁUMACZEŃ NA WBUDOWANY W DJANGO
+    -   PRZEBUDOWA SYSTEMU TŁUMACZEŃ NA WBUDOWANY W DJANGO:
+        after change django.po use command in terminal:
+            django-admin compilemessages
+
 
     -estimated time wybierany z listy, a nie wpisywany
-    -dodać do lang_pl wbudowane alerty błędów w formularzu i zmienić na własne
+    -sprawdzić możliwość dodawania własnych plików z tłumaczeniem oprócz django.po
     -ukryte pola wymagają wypełnienia. czy tworzyć posty wprowadzane bez lokalizacji?
     -tagi muszą być wprowadzone do tworzenia posta?
 
