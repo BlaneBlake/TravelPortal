@@ -1,7 +1,6 @@
 
 <footer>
     <p>stopka</p>
-
     <form action="/set_language/" method="post">
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ request.path }}" />

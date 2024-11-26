@@ -8,4 +8,13 @@
         <a href="{% url 'Authentication:profile' %}">{% trans "User profile" %}</a>
 
     </ul>
+
+
+<!--testowe sprawdzanie języka -->
+    <div style="color:red">
+        <h3>TESTY!!!</h3>
+        <p>LANGUAGE_CODE: {{ LANGUAGE_CODE }}</p>
+        <p>Available languages: {{ LANGUAGES }}</p>
+    </div>
+
 {% endblock %}}
