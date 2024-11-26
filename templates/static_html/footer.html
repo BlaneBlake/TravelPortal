@@ -1,6 +1,14 @@
 
-
-
 <footer>
-  <p>stopka</p>
+    <p>stopka</p>
+
+    <form action="/set_language/" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.path }}" />
+        <select name="language">
+            <option value="pl" {% if LANGUAGE_CODE == 'pl' %}selected{% endif %}>Polski</option>
+            <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>English</option>
+        </select>
+        <button type="submit">Zmień język</button>
+    </form>
 </footer>

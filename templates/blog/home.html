@@ -1,10 +1,11 @@
 {% extends "../base.html" %}
+{% load i18n %}
 
 {% block content %}
-<h2> {{ texts.greeting }} </h2>
-    <h3> {{ texts.urls }}: </h3>
+<h2> {% trans "Welcome to the homepage" %} </h2>
+    <h3> {% trans "Useful links" %}: </h3>
     <ul>
-        <a href="{% url 'Authentication:profile' %}">{{ texts.navigation.profile }}</a>
+        <a href="{% url 'Authentication:profile' %}">{% trans "User profile" %}</a>
 
     </ul>
-{% endblock %}
+{% endblock %}}

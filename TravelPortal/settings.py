@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -114,7 +115,19 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pl'
+
+# Lista dostępnych języków
+LANGUAGES = [
+    ('en', 'English'),
+    ('pl', 'Polski')
+]
+
+
+# Ścieżka do plików tłumaczeń
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',  # zakładając, że twój katalog lokalizacji znajduje się w katalogu głównym
+]
 
 TIME_ZONE = 'UTC'
 
@@ -152,3 +165,4 @@ GOOGLE_MAPS_API_KEY = os.getenv('GOOGLE_MAPS_API_KEY')
 # language files
 with open('lang/lang_pl.json', 'r', encoding='utf-8') as file:
     TEXTS = json.load(file)
+
