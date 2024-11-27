@@ -3,19 +3,20 @@
 
 {% block content %}
 
-  {% if post.main_image %}
-    <img src="{{ post.main_image.url }}" alt="Main image of {{ post.title }}">
-  {% endif %}
-
   <h2>{{ post.title }}</h2>
 
   <p>{{ post.content }}</p>
 
-  {% if images %}
+  {% if gallery %}
     <h3>{% trans "Gallery" %}</h3>
-    <div class="post-images">
-      {% for image in images %}
-        <img src="{{ image.image.url }}" alt="Image for {{ post.title }}">
+    <div class="post-gallery">
+      {% for photo in gallery.photos.all %}
+        <div class="photo">
+          <img src="{{ photo.image.url }}" alt="{{ photo.caption }}">
+          {% if photo.caption %}
+            <p>{{ photo.caption }}</p>
+          {% endif %}
+        </div>
       {% endfor %}
     </div>
   {% endif %}
@@ -24,8 +25,7 @@
     <p><strong>{% trans "Location name" %}:</strong> {{ post.place_name }}</p>
     <p><a href="{{ post.location_url }}" target="_blank">{% trans "View on map" %}</a></p>
 
-<!--  czy tworzyć posty wprowadzane bez lokalizacji?  -->
-
+  <!--  czy tworzyć posty wprowadzane bez lokalizacji?  -->
   {% elif post.place_name %}
     <p><strong>{% trans "Location name" %}:</strong> {{ post.place_name }}</p>
   {% endif %}

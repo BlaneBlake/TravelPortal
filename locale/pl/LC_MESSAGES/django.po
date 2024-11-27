@@ -1291,6 +1291,9 @@ msgstr "Data dołączenia"
 
 # Blog:
 
+msgid "Welcome"
+msgstr "Witaj"
+
 msgid "Welcome to the homepage"
 msgstr "Witaj na stronie domowej"
 
@@ -1356,11 +1359,26 @@ msgstr "Widok na mapie"
 msgid "Gallery"
 msgstr "Galeria"
 
+msgid "Gallery title"
+msgstr "Nazwa galerii"
+
 msgid "Add photo"
 msgstr "Dodaj zdjęcie"
+
+msgid "Add photos"
+msgstr "Dodaj zdjęcia"
+
+msgid "Add gallery"
+msgstr "Dodaj galerię"
 
 msgid "Photo"
 msgstr "Zdjęcie"
 
 msgid "Main image"
 msgstr "Zdjęcie główne"
+
+msgid "Caption"
+msgstr "Opis"
+
+msgid "Photo in"
+msgstr "Zdjęcie w"

@@ -1,7 +1,7 @@
 from datetime import timedelta
 
 from django import forms
-from .models import Post, PostImage
+from .models import Post
 from taggit.forms import TagWidget
 
 from TravelPortal.settings import TEXTS
@@ -13,7 +13,6 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ['title',
                   'content',
-                  'main_image',
                   'tags',
                   'location_url',
                   # 'place_name',
@@ -30,7 +29,6 @@ class PostForm(forms.ModelForm):
         labels = {
             'title': _('Title'),
             'content': _('Content'),
-            'main_image': _('Main image'),
             'tags': _('tags'),
             'estimated_time': _('Estimated time'),
         }
@@ -48,11 +46,3 @@ class PostForm(forms.ModelForm):
                     raise forms.ValidationError(_('Correct the format to HH:MM'))
 
             return estimated_time
-
-class PostImageForm(forms.ModelForm):
-    class Meta:
-        model = PostImage
-        fields = ['image']
-        labels = {
-            'image': _('Photo'),
-        }

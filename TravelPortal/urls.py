@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(('Authentication.urls', 'Authentication'), 'Authentication')),
     path('', include(('Blog.urls', 'Blog'), 'Blog')),
+    path('', include(('Gallery.urls', 'Gallery'), 'Gallery')),
     path('set_language/', set_language, name='set_language'),
 ] + static(settings.STATIC_URL)
 

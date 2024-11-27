@@ -40,21 +40,22 @@
         -sprawdzić możliwość dodawania własnych plików z tłumaczeniem oprócz django.po
 
 
-    -estimated time wybierany z listy, a nie wpisywany
+    -estimated time wybierany z listy, a nie wpisywany. 
+    na razie podanie 10:00 w formularzu daje 00:10:00 w poście
 
     -sprawdzić możliwość dodawania własnych plików z tłumaczeniem oprócz django.po
 
-    -Rozdzielic tlumaczenia na 
-        ~Ogolne
-        ~Do szablonów autoryzacji
-        ~Do szablonow bloga
+    -Poprawić dodawanie lokalizacji "widok na mapie" w szczegółach postu działa 
+    tylko jeśli wpiszesz w wybierz na mapie, nie działa po ustawieniu pinezki
 
     -ukryte pola wymagają wypełnienia. czy tworzyć posty wprowadzane bez lokalizacji?
 
-    -tagi muszą być wprowadzone do tworzenia posta?
+    -tagi muszą być wprowadzone do tworzenia posta? (usunąć tę konieczność)
 
     -Na razie chyba zrobię żeby mi dzieliło zdjęcia na foldery przypisane do konkretnych postów, a później i tak będę 
     w tym jeszcze grzebał pewnie żeby ustawić wybieranie równego zdjęcia z kolekcji czy innych pierdółek. 
     Teraz chcę po prostu zarys zrobić żeby nie pozniej nie musiec zmieniac calej mechaniki jak już ją odbuduję.
     A przypisywanie zdjęć do miejsca też jest spoko pomysłem, może nie do katalogowania, 
     ale zrobienia filtrowania galerii wszystkich zdjęć pod względem miejsc które prezentują
+
+    -

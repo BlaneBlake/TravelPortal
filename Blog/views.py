@@ -1,5 +1,3 @@
-from lib2to3.fixes.fix_input import context
-
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
@@ -9,8 +7,12 @@ from django.urls import reverse_lazy
 from django.forms import modelformset_factory
 from django.conf import settings
 
-from .models import Post, PostImage
-from .forms import PostForm, PostImageForm
+from .models import Post
+from .forms import PostForm
+
+from Gallery.models import Gallery, Photo
+from Gallery.forms import GalleryForm, PhotoForm
+
 from TravelPortal.mixins.context_mixins import TextsMixin
 
 
@@ -19,21 +21,17 @@ from django.utils.translation import gettext_lazy as _
 
 # Create your views here.
 
-class HomePageView(TextsMixin, TemplateView):
-    template_name = 'blog/home.html'
-
-# Translation tests
-#     -----------------------
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['LANGUAGE_CODE'] = get_language()  # Bieżący język
-        context['LANGUAGES'] = settings.LANGUAGES  # Dostępne języki
-        return context
-#     -----------------------
-
-
 class Test(TextsMixin, TemplateView):
     template_name = 'test.html'
+    def get_context_data(self, **kwargs):
+        # Pobranie domyślnego kontekstu
+        context = super().get_context_data(**kwargs)
+        # Dodanie własnych danych do kontekstu
+        context['test_type'] = _("Blog")
+        return context
+
+class HomePageView(TextsMixin, TemplateView):
+    template_name = 'blog/home.html'
 
 class PostCreateView(TextsMixin, LoginRequiredMixin, CreateView):
     model = Post
@@ -45,33 +43,43 @@ class PostCreateView(TextsMixin, LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         post = form.save()
 
-        images_formset = self.get_images_formset()
-        if images_formset.is_valid():
-            images = images_formset.save(commit=False)
-            for image in images:
-                image.post = post
-                image.save()
+        # Tworzenie galerii dla posta
+        gallery_form = GalleryForm(self.request.POST)
+        if gallery_form.is_valid():
+            gallery = gallery_form.save(commit=False)
+            gallery.post = post
+            gallery.save()
+
+            # Obsługa zdjęć
+            photos_formset = self.get_photos_formset()
+            if photos_formset.is_valid():
+                photos = photos_formset.save(commit=False)
+                for photo in photos:
+                    photo.gallery = gallery
+                    photo.save()
 
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
 
         if self.request.POST:
-            data['images_formset'] = self.get_images_formset()
+            context['gallery_form'] = GalleryForm(self.request.POST)
+            context['photos_formset'] = self.get_photos_formset()
         else:
-            data['images_formset'] = self.get_images_formset(empty=True)
+            context['gallery_form'] = GalleryForm()
+            context['photos_formset'] = self.get_photos_formset(empty=True)
 
         # Add Google Maps API Key to the context
-        data['GOOGLE_MAPS_API_KEY'] = settings.GOOGLE_MAPS_API_KEY
+        context['GOOGLE_MAPS_API_KEY'] = settings.GOOGLE_MAPS_API_KEY
 
-        return data
+        return context
 
-    def get_images_formset(self, empty=False):
-        PostImageFormSet = modelformset_factory(PostImage, form=PostImageForm, extra=2)
+    def get_photos_formset(self, empty=False):
+        PhotoFormSet = modelformset_factory(Photo, form=PhotoForm, extra=2)
         if empty:
-            return PostImageFormSet(queryset=PostImage.objects.none())
-        return PostImageFormSet(self.request.POST, self.request.FILES)
+            return PhotoFormSet(queryset=Photo.objects.none())
+        return PhotoFormSet(self.request.POST, self.request.FILES)
 
 class PostListView(TextsMixin, ListView):
     model = Post
@@ -86,6 +94,14 @@ class PostDetailView(TextsMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['images'] = self.object.images.all()
         context['tags'] = self.object.tags.all()
+
+        gallery = getattr(self.object, 'gallery', None)
+        if gallery:
+            context['gallery'] = gallery
+            context['photos'] = gallery.photos.all()
+        else:
+            context['gallery'] = None
+            context['photos'] = []
+
         return context

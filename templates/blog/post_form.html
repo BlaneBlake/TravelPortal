@@ -12,12 +12,15 @@ long
             {% csrf_token %}
             {{ form.as_p }}
 
-        <h2>{% trans "Add photo" %}</h2>
+        <h2>{% trans "Add gallery" %}</h2>
+            {{ gallery_form.as_p }}
 
-            {{ images_formset.management_form }}
-            {% for form in images_formset %}
+        <h2>{% trans "Add photos" %}</h2>
+            {{ photos_formset.management_form }}
+            {% for form in photos_formset %}
                 {{ form.as_p }}
             {% endfor %}
+
 
         <!-- Mapa Google -->
         <h3>{% trans "Select location on the map" %}</h3>
