@@ -41,7 +41,16 @@
 
 
     -estimated time wybierany z listy, a nie wpisywany
+
+    -sprawdzić możliwość dodawania własnych plików z tłumaczeniem oprócz django.po
+
+    -Rozdzielic tlumaczenia na 
+        ~Ogolne
+        ~Do szablonów autoryzacji
+        ~Do szablonow bloga
+
     -ukryte pola wymagają wypełnienia. czy tworzyć posty wprowadzane bez lokalizacji?
+
     -tagi muszą być wprowadzone do tworzenia posta?
 
     -Na razie chyba zrobię żeby mi dzieliło zdjęcia na foldery przypisane do konkretnych postów, a później i tak będę 
