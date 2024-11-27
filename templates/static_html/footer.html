@@ -6,8 +6,8 @@
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ request.path }}" />
         <select name="language">
-            <option value="pl" {% if LANGUAGE_CODE == 'pl' %}selected{% endif %}>Polski</option>
-            <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>English</option>
+            <option value="pl" {% if LANGUAGE_CODE == 'pl' %}selected{% endif %}>{% trans "Polish" %}</option>
+            <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>{% trans "English" %}</option>
         </select>
         <button type="submit">{% trans "Change language" %}</button>
     </form>

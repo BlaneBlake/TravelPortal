@@ -1237,11 +1237,22 @@ msgstr ""
 
 #: MY OWN TRANSLATIONS
 
-msgid "Welcome to the homepage"
-msgstr "Witaj na stronie domowej"
+# MAIN:
 
-msgid "Goodbye"
-msgstr "Do widzenia"
+msgid "Send"
+msgstr "Wyślij"
+
+msgid "Change language"
+msgstr "Zmień język"
+
+msgid "Footer"
+msgstr "Stopka"
+
+msgid "Polish"
+msgstr "Polski"
+
+msgid "English"
+msgstr "Angielski"
 
 msgid "Home"
 msgstr "Strona główna"
@@ -1249,14 +1260,45 @@ msgstr "Strona główna"
 msgid "Useful links"
 msgstr "Przydatne odnośniki"
 
-msgid "Send"
-msgstr "Wyślij"
+# Authentication:
+
+msgid "Log in"
+msgstr "Zaloguj"
+
+msgid "Log out"
+msgstr "Wyloguj"
+
+msgid "Sign up"
+msgstr "Załóż konto"
+
+msgid "User profile"
+msgstr "Profil użytkownika"
+
+msgid "Username"
+msgstr "Nazwa użytkownika"
+
+msgid "First name"
+msgstr "Imię"
+
+msgid "Last name"
+msgstr "Nazwisko"
+
+msgid "Email"
+msgstr "e-mail"
+
+msgid "Join date"
+msgstr "Data dołączenia"
+
+# Blog:
+
+msgid "Welcome to the homepage"
+msgstr "Witaj na stronie domowej"
+
+msgid "Goodbye"
+msgstr "Do widzenia"
 
 msgid "Add post"
 msgstr "Dodaj post"
-
-msgid "Add photo"
-msgstr "Dodaj zdjęcie"
 
 msgid "Title"
 msgstr "Tytuł"
@@ -1264,17 +1306,11 @@ msgstr "Tytuł"
 msgid "Content"
 msgstr "Treść"
 
-msgid "Main image"
-msgstr "Zdjęcie główne"
-
 msgid "Tags"
 msgstr "Tagi"
 
 msgid "Estimated time"
 msgstr "Szacowany czas"
-
-msgid "Photo"
-msgstr "Zdjęcie"
 
 msgid "Select location on the map"
 msgstr "Wybierz lokalizację na mapie"
@@ -1285,20 +1321,8 @@ msgstr "Czas w formacie GG:MM"
 msgid "Correct the format to HH:MM"
 msgstr "Popraw format na GG:MM"
 
-msgid "User profile"
-msgstr "Profil użytkownika"
-
 msgid "Add new post"
 msgstr "Dodaj nowy post"
-
-msgid "Log in"
-msgstr "Zaloguj"
-
-msgid "Log out"
-msgstr "Wyloguj"
-
-msgid "Sign up"
-msgstr "Załóż konto"
 
 msgid "Posts"
 msgstr "Posty"
@@ -1321,32 +1345,22 @@ msgstr "tagi"
 msgid "Visiting time"
 msgstr "Czas zwiedzania"
 
-msgid "Gallery"
-msgstr "Galeria"
-
 msgid "Location name"
 msgstr "Nazwa miejsca"
 
 msgid "View on map"
 msgstr "Widok na mapie"
 
-msgid "Username"
-msgstr "Nazwa użytkownika"
+# Gallery:
 
-msgid "First name"
-msgstr "Imię"
+msgid "Gallery"
+msgstr "Galeria"
 
-msgid "Last name"
-msgstr "Nazwisko"
+msgid "Add photo"
+msgstr "Dodaj zdjęcie"
 
-msgid "Email"
-msgstr "e-mail"
+msgid "Photo"
+msgstr "Zdjęcie"
 
-msgid "Join date"
-msgstr "Data dołączenia"
-
-msgid "Footer"
-msgstr "Stopka"
-
-msgid "Change language"
-msgstr "Zmień język"
+msgid "Main image"
+msgstr "Zdjęcie główne"
