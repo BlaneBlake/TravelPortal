@@ -46,16 +46,21 @@
 
         -Poprawić dodawanie lokalizacji "widok na mapie" w szczegółach postu działa 
         tylko jeśli wpiszesz w wybierz na mapie, nie działa po ustawieniu pinezki
+
+        -niech po wybraniu lokalizacji bedzie ustawiany jakiś place_name. obecnie ustawia None
+        Brak pola w PostForm
     
         -ukryte pola wymagają wypełnienia. czy tworzyć posty wprowadzane bez lokalizacji?
     
         -tagi muszą być wprowadzone do tworzenia posta? (usunąć tę konieczność)
     
     - GALERIA:
-        -wybieranie main image w galerii (przy pomocy radioset)
+
         -przesyłanie kilku zdjęć naraz
+
+        -wybieranie main image w galerii (przy pomocy radioset)
+
+        -możliwość edycji postu / usuwania i dodawania zdjec
     
         -dodać miniaturki zdjęć i po naciśnięciu na nie wyświetlać na cały ekran, 
         ale z ogranieczeniem do wielkości monitora
-
-        -możliwość edycji postu / usuwania i dodawania zdjec

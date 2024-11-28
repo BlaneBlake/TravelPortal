@@ -20,7 +20,7 @@
         <div class="photo">
           <img src="{{ photo.image.url }}" alt="{{ photo.caption }}">
           {% if photo.caption %}
-            <p>{{ photo.caption }}</p>
+            <p>{% trans "Caption"%}: {{ photo.caption }}</p>
           {% endif %}
         </div>
       {% endfor %}
