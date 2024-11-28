@@ -53,6 +53,7 @@
     
     - GALERIA:
         -wybieranie main image w galerii (przy pomocy radioset)
+        -przesyłanie kilku zdjęć naraz
     
         -dodać miniaturki zdjęć i po naciśnięciu na nie wyświetlać na cały ekran, 
         ale z ogranieczeniem do wielkości monitora
