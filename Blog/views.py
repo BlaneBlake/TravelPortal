@@ -43,20 +43,25 @@ class PostCreateView(TextsMixin, LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         post = form.save()
 
-        # Tworzenie galerii dla posta
-        gallery_form = GalleryForm(self.request.POST)
-        if gallery_form.is_valid():
-            gallery = gallery_form.save(commit=False)
-            gallery.post = post
-            gallery.save()
+        # Tworzenie galerii dla posta (lub jej pobranie, jeśli istnieje)
+        gallery, _ = Gallery.objects.get_or_create(post=post)
 
-            # Obsługa zdjęć
-            photos_formset = self.get_photos_formset()
-            if photos_formset.is_valid():
-                photos = photos_formset.save(commit=False)
-                for photo in photos:
-                    photo.gallery = gallery
-                    photo.save()
+
+        # Obsługa zdjęć
+        photos_formset = self.get_photos_formset()
+        if photos_formset.is_valid():
+            photos = photos_formset.save(commit=False)
+
+            for photo in photos:
+                photo.gallery = gallery
+                photo.save()
+
+        # # Obsługa formularza przesyłania zdjęć
+        # photo_form = MultiPhotoUploadForm(self.request.POST, self.request.FILES)
+        # if photo_form.is_valid():
+        #     images = self.request.FILES.getlist('images')  # Pobranie wszystkich przesłanych plików
+        #     for image in images:
+        #         Photo.objects.create(gallery=gallery, image=image)
 
         return super().form_valid(form)
 
@@ -66,9 +71,12 @@ class PostCreateView(TextsMixin, LoginRequiredMixin, CreateView):
         if self.request.POST:
             context['gallery_form'] = GalleryForm(self.request.POST)
             context['photos_formset'] = self.get_photos_formset()
+            # context['photo_form'] = MultiPhotoUploadForm(self.request.POST, self.request.FILES)
+
         else:
             context['gallery_form'] = GalleryForm()
             context['photos_formset'] = self.get_photos_formset(empty=True)
+            # context['photo_form'] = MultiPhotoUploadForm()
 
         # Add Google Maps API Key to the context
         context['GOOGLE_MAPS_API_KEY'] = settings.GOOGLE_MAPS_API_KEY
@@ -100,8 +108,10 @@ class PostDetailView(TextsMixin, DetailView):
         if gallery:
             context['gallery'] = gallery
             context['photos'] = gallery.photos.all()
+            context['main_image'] = gallery.photos.filter(is_main=True).first() or gallery.photos.first()
         else:
             context['gallery'] = None
             context['photos'] = []
+            context['main_image'] = None
 
         return context

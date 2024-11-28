@@ -1368,6 +1368,9 @@ msgstr "Dodaj zdjęcie"
 msgid "Add photos"
 msgstr "Dodaj zdjęcia"
 
+msgid "Upload photos"
+msgstr "Prześlij zdjęcia"
+
 msgid "Add gallery"
 msgstr "Dodaj galerię"
 

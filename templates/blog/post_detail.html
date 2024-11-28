@@ -3,14 +3,20 @@
 
 {% block content %}
 
+  {% if main_image %}
+    <div class="main-image">
+      <img src="{{ main_image.image.url }}" alt="Main image for {{ post.title }}">
+    </div>
+  {% endif %}
+
   <h2>{{ post.title }}</h2>
 
   <p>{{ post.content }}</p>
 
-  {% if gallery %}
+  {% if photos %}
     <h3>{% trans "Gallery" %}</h3>
     <div class="post-gallery">
-      {% for photo in gallery.photos.all %}
+      {% for photo in photos %}
         <div class="photo">
           <img src="{{ photo.image.url }}" alt="{{ photo.caption }}">
           {% if photo.caption %}
