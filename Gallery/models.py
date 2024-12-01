@@ -14,13 +14,14 @@ def user_post_photo_path(instance, filename):
 
 class Gallery(models.Model):
     post = models.OneToOneField(Post, related_name='gallery', on_delete=models.CASCADE)  # Jedna galeria przypisana do jednego posta
-    title = models.CharField(max_length=200, blank=True)
+    # gallery_title = models.CharField(max_length=200, blank=True)
 
     def get_main_photo(self):
         return self.photos.filter(is_main=True).first() or self.photos.first()
 
     def __str__(self):
-        return self.title or f"Gallery for {self.post.title}"
+        # return self.gallery_title or f"Gallery for {self.post.title}"
+        return f"Gallery for {self.post.title}"
 
 class Photo(models.Model):
     gallery = models.ForeignKey(Gallery, related_name='photos', on_delete=models.CASCADE)  # Zdjęcia w galerii

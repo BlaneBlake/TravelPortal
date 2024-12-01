@@ -13,16 +13,10 @@ long
             {{ form.as_p }}
 
         <h2>{% trans "Add gallery" %}</h2>
-            {{ gallery_form.as_p }}
+<!--            {{ gallery_form.as_p }}-->
 
-        <h2>{% trans "Add photos" %}</h2>
-            {{ photos_formset.management_form }}
-            {% for form in photos_formset %}
-                {{ form.as_p }}
-            {% endfor %}
-
-<!--        <h3>{% trans "Upload Photos" %}</h3>-->
-<!--            {{ photo_form.as_p }}-->
+        <h3>{% trans "Upload Photos" %}</h3>
+            {{ photo_form.images }}
 
         <!-- Mapa Google -->
         <h3>{% trans "Select location on the map" %}</h3>

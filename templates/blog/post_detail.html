@@ -15,6 +15,13 @@
 
   {% if photos %}
     <h3>{% trans "Gallery" %}</h3>
+
+<!--    {% if gallery.gallery_title  %}-->
+<!--        <h2>{{ gallery.gallery_title }}</h2>-->
+<!--    {% else %}-->
+<!--        <p>No gallery title available</p>-->
+<!--    {% endif %}-->
+
     <div class="post-gallery">
       {% for photo in photos %}
         <div class="photo">

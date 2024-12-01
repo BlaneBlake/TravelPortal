@@ -11,7 +11,7 @@ from .models import Post
 from .forms import PostForm
 
 from Gallery.models import Gallery, Photo
-from Gallery.forms import GalleryForm, PhotoForm
+from Gallery.forms import MultiPhotoUploadForm
 
 from TravelPortal.mixins.context_mixins import TextsMixin
 
@@ -46,22 +46,23 @@ class PostCreateView(TextsMixin, LoginRequiredMixin, CreateView):
         # Tworzenie galerii dla posta (lub jej pobranie, jeśli istnieje)
         gallery, _ = Gallery.objects.get_or_create(post=post)
 
+        # gallery_form = GalleryForm(self.request.POST)
+        # if gallery_form.is_valid():
+        #     gallery, created = Gallery.objects.get_or_create(post=post)
+        #     gallery.gallery_title = gallery_form.cleaned_data['gallery_title']
+        #     gallery.save()
+        # print("TEST", self.request.POST.get('gallery_title'))  # Sprawdź, czy pole jest przesyłane
 
-        # Obsługa zdjęć
-        photos_formset = self.get_photos_formset()
-        if photos_formset.is_valid():
-            photos = photos_formset.save(commit=False)
 
-            for photo in photos:
-                photo.gallery = gallery
-                photo.save()
+        # Obsługa formularza przesyłania zdjęć
+        photo_form = MultiPhotoUploadForm(self.request.FILES)
+        if photo_form.is_valid():
+            images = self.request.FILES.getlist('images')  # Pobranie wszystkich przesłanych plików
+            for image in images:
+                Photo.objects.create(gallery=gallery, image=image)
 
-        # # Obsługa formularza przesyłania zdjęć
-        # photo_form = MultiPhotoUploadForm(self.request.POST, self.request.FILES)
-        # if photo_form.is_valid():
-        #     images = self.request.FILES.getlist('images')  # Pobranie wszystkich przesłanych plików
-        #     for image in images:
-        #         Photo.objects.create(gallery=gallery, image=image)
+        else:
+            print(f"Photo form errors: {photo_form.errors}")
 
         return super().form_valid(form)
 
@@ -69,25 +70,17 @@ class PostCreateView(TextsMixin, LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
 
         if self.request.POST:
-            context['gallery_form'] = GalleryForm(self.request.POST)
-            context['photos_formset'] = self.get_photos_formset()
-            # context['photo_form'] = MultiPhotoUploadForm(self.request.POST, self.request.FILES)
+            # context['gallery_form'] = GalleryForm(self.request.POST)
+            context['photo_form'] = MultiPhotoUploadForm(self.request.POST, self.request.FILES)
 
         else:
-            context['gallery_form'] = GalleryForm()
-            context['photos_formset'] = self.get_photos_formset(empty=True)
-            # context['photo_form'] = MultiPhotoUploadForm()
+            # context['gallery_form'] = GalleryForm()
+            context['photo_form'] = MultiPhotoUploadForm()
 
         # Add Google Maps API Key to the context
         context['GOOGLE_MAPS_API_KEY'] = settings.GOOGLE_MAPS_API_KEY
 
         return context
-
-    def get_photos_formset(self, empty=False):
-        PhotoFormSet = modelformset_factory(Photo, form=PhotoForm, extra=2)
-        if empty:
-            return PhotoFormSet(queryset=Photo.objects.none())
-        return PhotoFormSet(self.request.POST, self.request.FILES)
 
 class PostListView(TextsMixin, ListView):
     model = Post
