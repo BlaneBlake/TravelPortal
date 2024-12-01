@@ -56,8 +56,6 @@
     
     - GALERIA:
 
-        -osobny plik na widgety
-
         -wybieranie main image w galerii (przy pomocy radioset)
 
         -możliwość edycji postu / usuwania i dodawania zdjec
