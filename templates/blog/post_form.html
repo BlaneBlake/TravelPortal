@@ -13,7 +13,6 @@ long
             {{ form.as_p }}
 
         <h2>{% trans "Add gallery" %}</h2>
-<!--            {{ gallery_form.as_p }}-->
 
         <h3>{% trans "Upload Photos" %}</h3>
             {{ photo_form.images }}
@@ -28,8 +27,6 @@ long
         <input type="hidden" id="location_url" name="location_url" value="{{ form.location_url.value }}">
         <input type="hidden" id="latitude" name="latitude" value="{{ form.latitude.value }}">
         <input type="hidden" id="longitude" name="longitude" value="{{ form.longitude.value }}">
-
-
 
         <input type="submit" value="{% trans "Add post" %}">
     </form>

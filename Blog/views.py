@@ -15,8 +15,6 @@ from Gallery.forms import MultiPhotoUploadForm
 
 from TravelPortal.mixins.context_mixins import TextsMixin
 
-
-from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 
 # Create your views here.
@@ -45,14 +43,6 @@ class PostCreateView(TextsMixin, LoginRequiredMixin, CreateView):
 
         # Tworzenie galerii dla posta (lub jej pobranie, jeśli istnieje)
         gallery, _ = Gallery.objects.get_or_create(post=post)
-
-        # gallery_form = GalleryForm(self.request.POST)
-        # if gallery_form.is_valid():
-        #     gallery, created = Gallery.objects.get_or_create(post=post)
-        #     gallery.gallery_title = gallery_form.cleaned_data['gallery_title']
-        #     gallery.save()
-        # print("TEST", self.request.POST.get('gallery_title'))  # Sprawdź, czy pole jest przesyłane
-
 
         # Obsługa formularza przesyłania zdjęć
         photo_form = MultiPhotoUploadForm(self.request.FILES)
