@@ -38,7 +38,7 @@
   {% endif %}
 
   {% if post.estimated_time %}
-    <p><strong>{% trans "Visiting time" %}:</strong> {{ post.estimated_time }}</p>
+    <p><strong>{% trans "Visiting time" %}:</strong> {{ post.estimated_time }} {% trans "hours"%}</p>
   {% endif %}
 
   <p><strong>{% trans "Author" %}:</strong> {{ post.author.username }}</p>

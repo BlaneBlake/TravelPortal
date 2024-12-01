@@ -1354,6 +1354,9 @@ msgstr "Nazwa miejsca"
 msgid "View on map"
 msgstr "Widok na mapie"
 
+msgid "hours"
+msgstr "godzin"
+
 # Gallery:
 
 msgid "Gallery"

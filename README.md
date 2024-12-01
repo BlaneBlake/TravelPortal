@@ -41,18 +41,16 @@
         -sprawdzić możliwość dodawania własnych plików z tłumaczeniem oprócz django.po
 
     - POSTY:
-        -estimated time wybierany z listy, a nie wpisywany. 
-        na razie podanie 10:00 w formularzu daje 00:10:00 w poście
+        -estimated time  sprawdzić jak działają liczebniki w plkikach tłumaczeń
 
         -Poprawić dodawanie lokalizacji "widok na mapie" w szczegółach postu działa 
         tylko jeśli wpiszesz w wybierz na mapie, nie działa po ustawieniu pinezki
 
-        -niech po wybraniu lokalizacji bedzie ustawiany jakiś place_name. obecnie ustawia None
+        -niech po wybraniu lokalizacji bedzie ustawiany jakiś place_name. 
+        Obecnie ustawia None
         Brak pola w PostForm
     
         -ukryte pola wymagają wypełnienia. czy tworzyć posty wprowadzane bez lokalizacji?
-    
-        -tagi muszą być wprowadzone do tworzenia posta? (usunąć tę konieczność)
     
     - GALERIA:
 
