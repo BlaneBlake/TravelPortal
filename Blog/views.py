@@ -60,11 +60,9 @@ class PostCreateView(TextsMixin, LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
 
         if self.request.POST:
-            # context['gallery_form'] = GalleryForm(self.request.POST)
             context['photo_form'] = MultiPhotoUploadForm(self.request.POST, self.request.FILES)
 
         else:
-            # context['gallery_form'] = GalleryForm()
             context['photo_form'] = MultiPhotoUploadForm()
 
         # Add Google Maps API Key to the context
