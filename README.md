@@ -51,6 +51,10 @@
         Brak pola w PostForm
     
         -ukryte pola wymagają wypełnienia. czy tworzyć posty wprowadzane bez lokalizacji?
+            -możliwe tworzenie bez lokalizacji, jednak niech puste pola zwracają komunikat "do uzupełnienia" w liście 
+            postów danego użytkownika
+            -możliwość usuwania własnego posta po zalogowaniu (niech usuwa też zdjęcia i galerię)
+            -możliwość edytowania własnego posta po zalogowaniu
     
     - GALERIA:
 

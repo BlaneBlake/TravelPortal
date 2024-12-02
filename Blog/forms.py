@@ -24,7 +24,6 @@ class PostForm(forms.ModelForm):
             'latitude': forms.HiddenInput(),
             'longitude': forms.HiddenInput(),
             'location_url': forms.HiddenInput(),
-            # 'estimated_time': forms.TextInput(attrs={'placeholder': _('Time in HH:MM format')}),
             'estimated_time': forms.Select(choices=[(timedelta(hours = i), f"{i} {_('hours')}") for i in range(1, 25)]),
         }
         labels = {
