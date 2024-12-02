@@ -74,27 +74,27 @@ function placeMarker(location) {
     document.getElementById('longitude').value = location.lng();
 }
 
-//function fetchPlaceDetails(location) {
-//    const geocoder = new google.maps.Geocoder();
-//    const service = new google.maps.places.PlacesService(map);
-//
-//    geocoder.geocode({ 'location': location }, (results, status) => {
-//        if (status === 'OK') {
-//            if (results[0]) {
-//                const placeId = results[0].place_id;
-//                const placeUrl = `https://www.google.com/maps/place/?q=place_id:${placeId}`;
-//                document.getElementById('location_url').value = placeUrl;
-//
-//                service.getDetails({ placeId: placeId }, (place, status) => {
-//                    if (status === google.maps.places.PlacesServiceStatus.OK) {
-//                        document.getElementById('place_name').value = place.name;
-//
-//                    }
-//                });
-//            }
-//        }
-//    });
-//}
+function fetchPlaceDetails(location) {
+    const geocoder = new google.maps.Geocoder();
+    const service = new google.maps.places.PlacesService(map);
+
+    geocoder.geocode({ 'location': location }, (results, status) => {
+        if (status === 'OK') {
+            if (results[0]) {
+                const placeId = results[0].place_id;
+                const placeUrl = `https://www.google.com/maps/place/?q=place_id:${placeId}`;
+                document.getElementById('location_url').value = placeUrl;
+
+                service.getDetails({ placeId: placeId }, (place, status) => {
+                    if (status === google.maps.places.PlacesServiceStatus.OK) {
+                        document.getElementById('place_name').value = place.name;
+
+                    }
+                });
+            }
+        }
+    });
+}
 
 //function fetchPlaceDetails(location) {
 //    const geocoder = new google.maps.Geocoder();
@@ -134,27 +134,27 @@ function placeMarker(location) {
 //        }
 //    });
 //}
-function fetchPlaceDetails(location) {
-    const geocoder = new google.maps.Geocoder();
-
-    geocoder.geocode({ 'location': location }, (results, status) => {
-        let placeUrl;
-
-        if (status === 'OK' && results[0]) {
-            const placeId = results[0].place_id;
-            placeUrl = placeId
-                ? `https://www.google.com/maps/place/?q=place_id:${placeId}`
-                : `https://www.google.com/maps?q=${location.lat()},${location.lng()}`;
-            document.getElementById('place_name').value = results[0].formatted_address || 'Brak danych';
-        } else {
-            placeUrl = `https://www.google.com/maps?q=${location.lat()},${location.lng()}`;
-            document.getElementById('place_name').value = 'Nieznane miejsce';
-        }
-
-        // Aktualizuj link URL
-        document.getElementById('location_url').value = placeUrl;
-
-        // Debugging: Wyświetl dane w konsoli
-        console.log('Generated link:', placeUrl);
-    });
-}
+//function fetchPlaceDetails(location) {
+//    const geocoder = new google.maps.Geocoder();
+//
+//    geocoder.geocode({ 'location': location }, (results, status) => {
+//        let placeUrl;
+//
+//        if (status === 'OK' && results[0]) {
+//            const placeId = results[0].place_id;
+//            placeUrl = placeId
+//                ? `https://www.google.com/maps/place/?q=place_id:${placeId}`
+//                : `https://www.google.com/maps?q=${location.lat()},${location.lng()}`;
+//            document.getElementById('place_name').value = results[0].formatted_address || 'Brak danych';
+//        } else {
+//            placeUrl = `https://www.google.com/maps?q=${location.lat()},${location.lng()}`;
+//            document.getElementById('place_name').value = 'Nieznane miejsce';
+//        }
+//
+//        // Aktualizuj link URL
+//        document.getElementById('location_url').value = placeUrl;
+//
+//        // Debugging: Wyświetl dane w konsoli
+//        console.log('Generated link:', placeUrl);
+//    });
+//}
