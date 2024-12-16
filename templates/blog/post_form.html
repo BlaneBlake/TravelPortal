@@ -31,10 +31,10 @@ long
         <input type="submit" value="{% trans "Add post" %}">
     </form>
 
-    <!-- Script for Google Maps API -->
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&libraries=places&callback=initMap" async defer></script>
-
     <!-- Load external JS file -->
-    <script src="{% static 'js/map-to-create-post.js' %}"></script>
+    <script async defer src="{% static 'js/map-to-create-post.js' %}"></script>
+
+    <!-- Script for Google Maps API -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&libraries=places&callback=initMap"></script>
 
 {% endblock %}
