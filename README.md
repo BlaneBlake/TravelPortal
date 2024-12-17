@@ -51,7 +51,8 @@
         Brak pola w PostForm
     
         -ukryte pola wymagają wypełnienia.
-            -możliwe tworzenie bez lokalizacji (trzeba w js dodać wartości domyślne w razie niewybrania pola na mapie),
+            -(SOLVED) możliwe tworzenie bez lokalizacji (trzeba w js dodać wartości domyślne w razie niewybrania pola na mapie)
+                (obecnie usstawiona wartość default przy niewidocznych polach w templatce),
             -niech puste pola zwracają komunikat "do uzupełnienia" w liście postów danego użytkownika
             -możliwość usuwania własnego posta po zalogowaniu (niech usuwa też zdjęcia i galerię)
             -możliwość edytowania własnego posta po zalogowaniu

@@ -54,4 +54,8 @@
   {% endif %}
 
   <a href="{% url 'Blog:post_list' %}">{% trans "Post list" %}</a>
+
+  {% if post.author == user %}
+    <a href="{% url 'Blog:post_edit' pk=post.pk %}">{% trans "Edit post" %}</a>
+  {% endif %}
 {% endblock %}

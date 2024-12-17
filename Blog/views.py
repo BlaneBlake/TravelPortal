@@ -1,7 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
-from django.views.generic import TemplateView, CreateView, ListView, DetailView
+from django.views.generic import (
+    TemplateView,
+    CreateView,
+    ListView,
+    DetailView,
+    UpdateView)
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.forms import modelformset_factory
@@ -96,3 +102,57 @@ class PostDetailView(TextsMixin, DetailView):
             context['main_image'] = None
 
         return context
+
+class PostEditView(LoginRequiredMixin, UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'blog/post_form.html'
+
+    def get_queryset(self):
+        # Umożliwia edycję tylko postów należących do aktualnie zalogowanego użytkownika
+        queryset = super().get_queryset()
+        return queryset.filter(author=self.request.user)
+
+    def get_object(self, queryset=None):
+        # Pobieranie obiektu do edycji, jeśli użytkownik jest autorem
+        obj = super().get_object(queryset)
+        if obj.author != self.request.user:
+            raise Http404("You are not the author of this post.")
+        return obj
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        post = form.save()
+
+        # Tworzenie galerii dla posta (lub jej pobranie, jeśli istnieje)
+        gallery, _ = Gallery.objects.get_or_create(post=post)
+
+        # Obsługa formularza przesyłania zdjęć
+        photo_form = MultiPhotoUploadForm(self.request.FILES)
+        if photo_form.is_valid():
+            images = self.request.FILES.getlist('images')  # Pobranie wszystkich przesłanych plików
+            for image in images:
+                Photo.objects.create(gallery=gallery, image=image)
+
+        else:
+            print(f"Photo form errors: {photo_form.errors}")
+
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if self.request.POST:
+            context['photo_form'] = MultiPhotoUploadForm(self.request.POST, self.request.FILES)
+
+        else:
+            context['photo_form'] = MultiPhotoUploadForm()
+
+        # Add Google Maps API Key to the context
+        context['GOOGLE_MAPS_API_KEY'] = settings.GOOGLE_MAPS_API_KEY
+
+        return context
+
+    def get_success_url(self):
+        # Po zapisaniu, użytkownik zostaje przekierowany na stronę szczegółów posta
+        return reverse_lazy('Blog:post_detail', kwargs={'pk': self.object.pk})
