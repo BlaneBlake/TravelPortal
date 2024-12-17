@@ -24,9 +24,9 @@ long
         <div id="map" style="width: 500px; height: 400px; padding: 5px; margin: 5px;"></div>
 
         <!-- Hidden fields to store selected data -->
-        <input type="hidden" id="location_url" name="location_url" value="{{ form.location_url.value }}">
-        <input type="hidden" id="latitude" name="latitude" value="{{ form.latitude.value }}">
-        <input type="hidden" id="longitude" name="longitude" value="{{ form.longitude.value }}">
+        <input type="hidden" id="location_url" name="location_url" value="{{ form.location_url.value|default:'' }}">
+        <input type="hidden" id="latitude" name="latitude" value="{{ form.latitude.value|default:'' }}">
+        <input type="hidden" id="longitude" name="longitude" value="{{ form.longitude.value|default:'' }}">
 
         <input type="submit" value="{% trans "Add post" %}">
     </form>

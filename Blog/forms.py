@@ -46,3 +46,16 @@ class PostForm(forms.ModelForm):
                     raise forms.ValidationError(_('Correct the format to HH:MM'))
 
             return estimated_time
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Ustawienie ukrytych pól jako opcjonalnych
+        self.fields['location_url'].required = False
+        self.fields['latitude'].required = False
+        self.fields['longitude'].required = False
+    #
+    #     # Wymuszamy, żeby nie wysyłały błędów walidacji przy pustych polach
+    #     self.fields['location_url'].empty_value = ''
+    #     self.fields['latitude'].empty_value = None
+    #     self.fields['longitude'].empty_value = None

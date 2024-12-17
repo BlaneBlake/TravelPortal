@@ -6,7 +6,6 @@ function initMap() {
         zoom: 8
     });
 
-
     map.addListener('click', (event) => {
     placeMarker(event.latLng);
     fetchPlaceDetails(event.latLng); // To zapewnia generowanie linku dla pinezki
@@ -32,19 +31,6 @@ function initMap() {
             window.alert("Nie znaleziono miejsca");
             return;
         }
-//
-//    // Inicjalizacja autouzupełniania miejsc
-//    const input = document.getElementById('searchInput');
-//    autocomplete = new google.maps.places.Autocomplete(input);
-//    autocomplete.bindTo('bounds', map);  // Związanie autouzupełniania z granicami mapy
-//
-//    autocomplete.addListener('place_changed', () => {
-//        const place = autocomplete.getPlace();
-//
-//        if (!place.geometry || !place.geometry.location) {
-//            window.alert("Nie znaleziono miejsca");
-//            return;
-//        }
 
         // Zaktualizowanie mapy i markera dla wybranego miejsca
         placeMarker(place.geometry.location);
@@ -58,7 +44,7 @@ function initMap() {
         document.getElementById('location_url').value = `https://www.google.com/maps/place/?q=place_id:${place.place_id}`;
     });
 
-//
+
 }
 
 function placeMarker(location) {
@@ -74,66 +60,6 @@ function placeMarker(location) {
     document.getElementById('longitude').value = location.lng();
 }
 
-//function fetchPlaceDetails(location) {
-//    const geocoder = new google.maps.Geocoder();
-//    const service = new google.maps.places.PlacesService(map);
-//
-//    geocoder.geocode({ 'location': location }, (results, status) => {
-//        if (status === 'OK') {
-//            if (results[0]) {
-//                const placeId = results[0].place_id;
-//                const placeUrl = `https://www.google.com/maps/place/?q=place_id:${placeId}`;
-//                document.getElementById('location_url').value = placeUrl;
-//
-//                service.getDetails({ placeId: placeId }, (place, status) => {
-//                    if (status === google.maps.places.PlacesServiceStatus.OK) {
-//                        document.getElementById('place_name').value = place.name;
-//
-//                    }
-//                });
-//            }
-//        }
-//    });
-//}
-
-//function fetchPlaceDetails(location) {
-//    const geocoder = new google.maps.Geocoder();
-//
-//    geocoder.geocode({ 'location': location }, (results, status) => {
-//        if (status === 'OK' && results[0]) {
-//            const placeId = results[0].place_id;
-//            const placeUrl = `https://www.google.com/maps/place/?q=place_id:${placeId}`;
-//
-//            // Aktualizuj odpowiednie pola
-//            document.getElementById('location_url').value = placeUrl;
-//            document.getElementById('place_name').value = results[0].formatted_address; // lub inny preferowany format
-//        } else {
-//            console.error('Nie można pobrać szczegółów miejsca:', status);
-//        }
-//    });
-//}
-//function fetchPlaceDetails(location) {
-//    const geocoder = new google.maps.Geocoder();
-//
-//    geocoder.geocode({ 'location': location }, (results, status) => {
-//        if (status === 'OK' && results[0]) {
-//            const placeId = results[0].place_id;
-//            const placeUrl = placeId
-//                ? `https://www.google.com/maps/place/?q=place_id:${placeId}`
-//                : `https://www.google.com/maps?q=${location.lat()},${location.lng()}`; // Fallback bez place_id
-//
-//            // Aktualizuj odpowiednie pola
-//            document.getElementById('location_url').value = placeUrl;
-//            document.getElementById('place_name').value = results[0].formatted_address || 'Brak danych'; // Fallback
-//        } else {
-//            // Fallback, jeśli geokodowanie się nie powiedzie
-//            const fallbackUrl = `https://www.google.com/maps?q=${location.lat()},${location.lng()}`;
-//            document.getElementById('location_url').value = fallbackUrl;
-//            document.getElementById('place_name').value = 'Nieznane miejsce';
-//            console.error('Nie można pobrać szczegółów miejsca:', status);
-//        }
-//    });
-//}
 function fetchPlaceDetails(location) {
     const geocoder = new google.maps.Geocoder();
 
@@ -158,3 +84,14 @@ function fetchPlaceDetails(location) {
         console.log('Generated link:', placeUrl);
     });
 }
+
+//// Dodanie sprawdzenia przed wysłaniem formularza
+//document.querySelector('form').addEventListener('submit', function(e) {
+//    // Sprawdzenie, czy wartości w polach ukrytych są puste
+//    if (!document.getElementById('latitude').value || !document.getElementById('longitude').value) {
+//        // Ustawienie wartości domyślnych, jeśli nie zostały wybrane
+//        document.getElementById('latitude').value = '';  // Lub null, w zależności od wymagań
+//        document.getElementById('longitude').value = '';
+//        document.getElementById('location_url').value = '';  // Wartość domyślna URL
+//    }
+//});
