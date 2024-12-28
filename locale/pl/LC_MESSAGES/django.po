@@ -1394,3 +1394,6 @@ msgstr "Opis"
 
 msgid "Photo in"
 msgstr "Zdjęcie w"
+
+msgid "Manage gallery"
+msgstr "Zarządzaj galerią"

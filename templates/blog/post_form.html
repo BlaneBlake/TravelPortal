@@ -18,10 +18,29 @@ long
             {% csrf_token %}
             {{ form.as_p }}
 
-        <h2>{% trans "Add gallery" %}</h2>
-
         <h3>{% trans "Upload Photos" %}</h3>
             {{ photo_form.images }}
+
+        {% if manage_photo_formset %}
+
+        <!--    Management fields is necessarily    -->
+          {{ manage_photo_formset.management_form }}
+
+          <h3>{% trans "Manage gallery" %}</h3>
+          <div class="existing-photos">{% for form in manage_photo_formset %}
+              <div class="photo-entry">
+                <div>
+                    {% if form.instance.image %}
+                        <img src="{{ form.instance.image.url }}" alt="{{ form.instance.caption }}" width="150">
+                    {% else %}
+                        <p>No image available</p>
+                    {% endif %}
+                </div>
+                {{ form.as_p }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
 
         <!-- Mapa Google -->
         <h3>{% trans "Select location on the map" %}</h3>

@@ -17,7 +17,7 @@ from .models import Post
 from .forms import PostForm
 
 from Gallery.models import Gallery, Photo
-from Gallery.forms import MultiPhotoUploadForm
+from Gallery.forms import MultiPhotoUploadForm, ManagePhotoForm
 
 from TravelPortal.mixins.context_mixins import TextsMixin
 
@@ -120,7 +120,35 @@ class PostEditView(LoginRequiredMixin, UpdateView):
             raise Http404("You are not the author of this post.")
         return obj
 
+    def get_context_data(self, **kwargs):
+        # Dodanie formsetu do kontekstu
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['photo_form'] = MultiPhotoUploadForm(self.request.POST, self.request.FILES)
+            context['manage_photo_formset'] = self.get_manage_photo_formset(self.request.POST)
+        else:
+            context['photo_form'] = MultiPhotoUploadForm()
+            context['manage_photo_formset'] = self.get_manage_photo_formset()
+
+        # Add Google Maps API Key to the context
+        context['GOOGLE_MAPS_API_KEY'] = settings.GOOGLE_MAPS_API_KEY
+
+        return context
+
+    def get_manage_photo_formset(self, post_data=None):
+        gallery = self.object.gallery
+        PhotoFormSet = modelformset_factory(
+            Photo,
+            form=ManagePhotoForm,
+            extra=0
+        )
+        if post_data:
+            return PhotoFormSet(post_data, queryset=gallery.photos.all())
+        return PhotoFormSet(queryset=gallery.photos.all())
+
+
     def form_valid(self, form):
+        # Zapisz formularz posta
         form.instance.author = self.request.user
         post = form.save()
 
@@ -133,25 +161,23 @@ class PostEditView(LoginRequiredMixin, UpdateView):
             images = self.request.FILES.getlist('images')  # Pobranie wszystkich przesłanych plików
             for image in images:
                 Photo.objects.create(gallery=gallery, image=image)
-
         else:
             print(f"Photo form errors: {photo_form.errors}")
 
-        return super().form_valid(form)
+        # Obsługa zarządzania istniejącymi zdjęciami
+        manage_photo_formset = self.get_manage_photo_formset(self.request.POST)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        if self.request.POST:
-            context['photo_form'] = MultiPhotoUploadForm(self.request.POST, self.request.FILES)
-
+        if manage_photo_formset.is_valid():
+            for photo_form in manage_photo_formset:
+                photo = photo_form.save(commit=False)
+                if photo_form.cleaned_data.get('delete'):
+                    photo.delete()
+                else:
+                    photo.save()
         else:
-            context['photo_form'] = MultiPhotoUploadForm()
+            print(f"Manage photo formset errors: {manage_photo_formset.errors}")
 
-        # Add Google Maps API Key to the context
-        context['GOOGLE_MAPS_API_KEY'] = settings.GOOGLE_MAPS_API_KEY
-
-        return context
+        return super().form_valid(form)
 
     def get_success_url(self):
         # Po zapisaniu, użytkownik zostaje przekierowany na stronę szczegółów posta
