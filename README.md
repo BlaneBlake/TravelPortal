@@ -61,8 +61,6 @@
     - GALERIA:
 
         -wybieranie main image w galerii (przy pomocy radioset w menage gallery)
-
-        -(OK) możliwość edycji postu / usuwania i dodawania zdjec
-    
+ 
         -dodać miniaturki zdjęć i po naciśnięciu na nie wyświetlać na cały ekran, 
         ale z ogranieczeniem do wielkości monitora
