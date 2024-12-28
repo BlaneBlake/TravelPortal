@@ -54,8 +54,3 @@ class PostForm(forms.ModelForm):
         self.fields['location_url'].required = False
         self.fields['latitude'].required = False
         self.fields['longitude'].required = False
-    #
-    #     # Wymuszamy, żeby nie wysyłały błędów walidacji przy pustych polach
-    #     self.fields['location_url'].empty_value = ''
-    #     self.fields['latitude'].empty_value = None
-    #     self.fields['longitude'].empty_value = None

@@ -17,29 +17,39 @@ long
 
             {% csrf_token %}
             {{ form.as_p }}
+            <hr>
 
-        <h3>{% trans "Upload Photos" %}</h3>
-            {{ photo_form.images }}
+        <h2>{% trans "Manage gallery" %}</h2>
+
+            <h3>{% trans "Upload photos" %}</h3>
+                {{ photo_form.images }}
+            <hr>
 
         {% if manage_photo_formset %}
 
         <!--    Management fields is necessarily    -->
-          {{ manage_photo_formset.management_form }}
+            {{ manage_photo_formset.management_form }}
 
-          <h3>{% trans "Manage gallery" %}</h3>
-          <div class="existing-photos">{% for form in manage_photo_formset %}
-              <div class="photo-entry">
-                <div>
-                    {% if form.instance.image %}
-                        <img src="{{ form.instance.image.url }}" alt="{{ form.instance.caption }}" width="150">
-                    {% else %}
-                        <p>No image available</p>
-                    {% endif %}
-                </div>
-                {{ form.as_p }}
-              </div>
-            {% endfor %}
-          </div>
+            <h3>{% trans "Choose main image" %}</h3>
+                {{ main_photo_form.as_p }}
+
+            <hr>
+
+            <h3>{% trans "Delete photos" %}</h3>
+                  <div class="existing-photos">
+                      {% for form in manage_photo_formset %}
+                          <div class="photo-entry">
+                              <div>
+                                  {% if form.instance.image %}
+                                      <img src="{{ form.instance.image.url }}" alt="{{ form.instance.caption }}" width="150">
+                                  {% else %}
+                                      <p>No image available</p>
+                                  {% endif %}
+                              </div>
+                              {{ form.as_p }}
+                          </div>
+                      {% endfor %}
+                  </div>
         {% endif %}
 
         <!-- Mapa Google -->

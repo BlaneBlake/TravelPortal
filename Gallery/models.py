@@ -35,4 +35,4 @@ class Photo(models.Model):
                 self.is_main = True
         super().save(*args, **kwargs)
     def __str__(self):
-        return self.caption or f"Photo in {self.gallery.title}"
+        return self.caption or f"Photo in {self.gallery.post.title}"

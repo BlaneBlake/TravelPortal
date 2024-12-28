@@ -18,4 +18,17 @@ class ManagePhotoForm(forms.ModelForm):
 
     class Meta:
         model = Photo
-        fields = ['delete', 'is_main']
+        fields = ['delete']
+
+class SelectMainPhotoForm(forms.Form):
+    main_photo = forms.ModelChoiceField(
+        queryset=None,
+        label=_("Select Main Photo"),
+        required=True
+    )
+
+    def __init__(self, *args, **kwargs):
+        gallery = kwargs.pop('gallery', None)
+        super().__init__(*args, **kwargs)
+        if gallery:
+            self.fields['main_photo'].queryset = gallery.photos.all()

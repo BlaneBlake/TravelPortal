@@ -17,7 +17,7 @@ from .models import Post
 from .forms import PostForm
 
 from Gallery.models import Gallery, Photo
-from Gallery.forms import MultiPhotoUploadForm, ManagePhotoForm
+from Gallery.forms import MultiPhotoUploadForm, ManagePhotoForm, SelectMainPhotoForm
 
 from TravelPortal.mixins.context_mixins import TextsMixin
 
@@ -123,12 +123,22 @@ class PostEditView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         # Dodanie formsetu do kontekstu
         context = super().get_context_data(**kwargs)
+        gallery = self.object.gallery
+
         if self.request.POST:
             context['photo_form'] = MultiPhotoUploadForm(self.request.POST, self.request.FILES)
             context['manage_photo_formset'] = self.get_manage_photo_formset(self.request.POST)
+            context['main_photo_form'] = SelectMainPhotoForm(
+                self.request.POST,
+                gallery=gallery
+            )
         else:
             context['photo_form'] = MultiPhotoUploadForm()
             context['manage_photo_formset'] = self.get_manage_photo_formset()
+            context['main_photo_form'] = SelectMainPhotoForm(
+                gallery=gallery,
+                initial={'main_photo': gallery.get_main_photo()}
+            )
 
         # Add Google Maps API Key to the context
         context['GOOGLE_MAPS_API_KEY'] = settings.GOOGLE_MAPS_API_KEY
@@ -161,12 +171,9 @@ class PostEditView(LoginRequiredMixin, UpdateView):
             images = self.request.FILES.getlist('images')  # Pobranie wszystkich przesłanych plików
             for image in images:
                 Photo.objects.create(gallery=gallery, image=image)
-        else:
-            print(f"Photo form errors: {photo_form.errors}")
 
         # Obsługa zarządzania istniejącymi zdjęciami
         manage_photo_formset = self.get_manage_photo_formset(self.request.POST)
-
         if manage_photo_formset.is_valid():
             for photo_form in manage_photo_formset:
                 photo = photo_form.save(commit=False)
@@ -174,10 +181,22 @@ class PostEditView(LoginRequiredMixin, UpdateView):
                     photo.delete()
                 else:
                     photo.save()
-        else:
-            print(f"Manage photo formset errors: {manage_photo_formset.errors}")
 
         return super().form_valid(form)
+
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        gallery = self.object.gallery
+
+        # Obsługa wyboru zdjęcia głównego
+        main_photo_form = SelectMainPhotoForm(request.POST, gallery=gallery)
+        if main_photo_form.is_valid():
+            main_photo = main_photo_form.cleaned_data['main_photo']
+            gallery.photos.update(is_main=False)  # Wszystkie zdjęcia przestają być główne
+            main_photo.is_main = True
+            main_photo.save()
+
+        return response
 
     def get_success_url(self):
         # Po zapisaniu, użytkownik zostaje przekierowany na stronę szczegółów posta

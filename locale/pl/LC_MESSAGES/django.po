@@ -1389,6 +1389,9 @@ msgstr "Zdjęcie"
 msgid "Main image"
 msgstr "Zdjęcie główne"
 
+msgid "Choose main image"
+msgstr "Wybierz zdjęcie główne"
+
 msgid "Caption"
 msgstr "Opis"
 
@@ -1397,3 +1400,12 @@ msgstr "Zdjęcie w"
 
 msgid "Manage gallery"
 msgstr "Zarządzaj galerią"
+
+msgid "Delete this photo"
+msgstr "Usuń to zdjęcie"
+
+msgid "Delete photos"
+msgstr "Usuń zdjęcia"
+
+msgid "Select Main Photo"
+msgstr "Ustaw zdjęcie główne"
