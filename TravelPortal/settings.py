@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'Gallery',
     'taggit',
     'imagekit',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [

@@ -57,6 +57,11 @@ footer {
         object-fit: cover;
         border: 2px solid transparent;
     }
+
+input[type="radio"]{
+        visibility: hidden;
+    }
+
 input[type="radio"]:checked + .thumbnail-image {
         border: 2px solid #007bff;
     }

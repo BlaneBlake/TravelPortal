@@ -54,17 +54,25 @@
             -(SOLVED) możliwe tworzenie bez lokalizacji 
                 (obecnie usstawiona wartość default przy niewidocznych polach w templatce),
                 (trzeba w js dodać wartości domyślne w razie niewybrania pola na mapie)
+            - post z ustawioną lokalizacją na mapie w czasie edycji:
+                wymaga kolejnego ustawienia lokalizacji
+                niech wczytuje tą z bazy danych jeśli to możliwe
  
-            -niech puste pola zwracają komunikat "do uzupełnienia" w liście postów danego użytkownika
-            -możliwość usuwania własnego posta po zalogowaniu (niech usuwa też zdjęcia i galerię)
-    
+        -niech puste pola zwracają komunikat "do uzupełnienia" w liście postów danego użytkownika
+        -możliwość usuwania własnego posta po zalogowaniu (niech usuwa też zdjęcia i galerię)
+        
+        
+
     - GALERIA:
 
-        -wybieranie main image w galerii (przy pomocy radioset w menage gallery)
+        -przy tworzeniu miniatur zachować ich proporcje, nadac tylko max szerokość np
  
-        -dodać miniaturki zdjęć (miniaturki dodane)
-        sciezka zapisywania miniatur inna niż oczekiwana, pytanie czy warto usuwac ją z cache??
-        po naciśnięciu na nie wyświetlać na cały ekran, ale z ogranieczeniem do wielkości monitora
+        -po naciśnięciu na nie wyświetlać na cały ekran, ale z ogranieczeniem do wielkości monitora
 
-        -usuwanie zdjęć nie usuwa pliku zdjęcia z /users/{user_id}/posts/{post_id}/photos/{filename}
-        mimo że nie wyświetla go już w poście
+
+    -SOLVED (do sprawdzenia po czasie)
+        Poniższe po czyszczeniu bazy danych i media wstępnie działa i usuwa pliki z media
+        sprawdzić po czasie
+        -usuwanie zdjęć nie usuwa pliku zdjęcia z dysku, jedynie z bazy danych
+        -dodawanie zdjęć zapisanych na serwerze do wyświetlania w poście jeśli nie ma.
+        -pernamentne usuwanie zdjęć z serwera na etapie edytowania zawartości bazy danych.
