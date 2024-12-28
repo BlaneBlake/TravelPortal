@@ -9,7 +9,11 @@
     </div>
   {% endif %}
 
-  <h2>{{ post.title }}</h2>
+  <h2>{{ post.title }} | {% if post.author == user %}
+    <a href="{% url 'Blog:post_edit' pk=post.pk %}">{% trans "Edit post" %}</a>
+  {% endif %}</h2>
+
+
 
   <p>{{ post.content }}</p>
 
@@ -38,7 +42,7 @@
   {% endif %}
 
   {% if post.estimated_time %}
-    <p><strong>{% trans "Visiting time" %}:</strong> {{ post.estimated_time }}</p>
+    <p><strong>{% trans "Visiting time" %}:</strong> {{ post.estimated_time }} {% trans "hours"%}</p>
   {% endif %}
 
   <p><strong>{% trans "Author" %}:</strong> {{ post.author.username }}</p>
@@ -54,4 +58,5 @@
   {% endif %}
 
   <a href="{% url 'Blog:post_list' %}">{% trans "Post list" %}</a>
+
 {% endblock %}

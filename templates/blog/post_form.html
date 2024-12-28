@@ -7,34 +7,65 @@ long
 
     <form action="" method="POST" enctype="multipart/form-data">
 
-        <h2>{% trans "Add post" %}</h2>
+        <h2>
+            {% if form.instance.pk %}
+                {% trans "Edit post" %}
+            {% else %}
+                {% trans "Add post" %}
+              {% endif %}
+        </h2>
 
             {% csrf_token %}
             {{ form.as_p }}
 
-        <h2>{% trans "Add gallery" %}</h2>
-
         <h3>{% trans "Upload Photos" %}</h3>
             {{ photo_form.images }}
+
+        {% if manage_photo_formset %}
+
+        <!--    Management fields is necessarily    -->
+          {{ manage_photo_formset.management_form }}
+
+          <h3>{% trans "Manage gallery" %}</h3>
+          <div class="existing-photos">{% for form in manage_photo_formset %}
+              <div class="photo-entry">
+                <div>
+                    {% if form.instance.image %}
+                        <img src="{{ form.instance.image.url }}" alt="{{ form.instance.caption }}" width="150">
+                    {% else %}
+                        <p>No image available</p>
+                    {% endif %}
+                </div>
+                {{ form.as_p }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
 
         <!-- Mapa Google -->
         <h3>{% trans "Select location on the map" %}</h3>
 
-        <input type="text" id="place_name" name="place_name" placeholder="{% trans "Location name" %}" value="{{ form.place_name.value }}" readonly>
+        <input type="text" id="place_name" name="place_name" placeholder="{% trans 'Location name' %}" value="{{ form.place_name.value }}" readonly>
         <div id="map" style="width: 500px; height: 400px; padding: 5px; margin: 5px;"></div>
 
         <!-- Hidden fields to store selected data -->
-        <input type="hidden" id="location_url" name="location_url" value="{{ form.location_url.value }}">
-        <input type="hidden" id="latitude" name="latitude" value="{{ form.latitude.value }}">
-        <input type="hidden" id="longitude" name="longitude" value="{{ form.longitude.value }}">
+        <input type="hidden" id="location_url" name="location_url" value="{{ form.location_url.value|default:'' }}">
+        <input type="hidden" id="latitude" name="latitude" value="{{ form.latitude.value|default:'' }}">
+        <input type="hidden" id="longitude" name="longitude" value="{{ form.longitude.value|default:'' }}">
 
-        <input type="submit" value="{% trans "Add post" %}">
+        <button type="submit">
+          {% if form.instance.pk %}
+            {% trans "Save changes" %}
+          {% else %}
+            {% trans "Add Post" %}
+          {% endif %}
+        </button>
     </form>
 
-    <!-- Script for Google Maps API -->
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&libraries=places&callback=initMap" async defer></script>
-
     <!-- Load external JS file -->
-    <script src="{% static 'js/map-to-create-post.js' %}"></script>
+    <script async defer src="{% static 'js/map-to-create-post.js' %}"></script>
+
+    <!-- Script for Google Maps API -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&libraries=places&callback=initMap"></script>
 
 {% endblock %}

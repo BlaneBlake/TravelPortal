@@ -1260,6 +1260,9 @@ msgstr "Strona główna"
 msgid "Useful links"
 msgstr "Przydatne odnośniki"
 
+msgid "Save changes"
+msgstr "Zapisz zmiany"
+
 # Authentication:
 
 msgid "Log in"
@@ -1302,6 +1305,9 @@ msgstr "Do widzenia"
 
 msgid "Add post"
 msgstr "Dodaj post"
+
+msgid "Edit post"
+msgstr "Edytuj post"
 
 msgid "Title"
 msgstr "Tytuł"
@@ -1354,6 +1360,9 @@ msgstr "Nazwa miejsca"
 msgid "View on map"
 msgstr "Widok na mapie"
 
+msgid "hours"
+msgstr "godzin"
+
 # Gallery:
 
 msgid "Gallery"
@@ -1385,3 +1394,6 @@ msgstr "Opis"
 
 msgid "Photo in"
 msgstr "Zdjęcie w"
+
+msgid "Manage gallery"
+msgstr "Zarządzaj galerią"
