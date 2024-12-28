@@ -31,7 +31,15 @@ long
             {{ manage_photo_formset.management_form }}
 
             <h3>{% trans "Choose main image" %}</h3>
-                {{ main_photo_form.as_p }}
+
+                <div class="photo-thumbnails">
+                    {% for photo in photos %}
+                        <label class="photo-thumbnail">
+                            <input type="radio" name="photo" value="{{ photo.id }}" class="photo-radio">
+                            <img src="{{ photo.thumbnail.url }}" alt="{{ photo.caption }}" class="thumbnail-image">
+                        </label>
+                    {% endfor %}
+                </div>
 
             <hr>
 

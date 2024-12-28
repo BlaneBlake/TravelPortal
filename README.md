@@ -62,5 +62,9 @@
 
         -wybieranie main image w galerii (przy pomocy radioset w menage gallery)
  
-        -dodać miniaturki zdjęć i po naciśnięciu na nie wyświetlać na cały ekran, 
-        ale z ogranieczeniem do wielkości monitora
+        -dodać miniaturki zdjęć (miniaturki dodane)
+        sciezka zapisywania miniatur inna niż oczekiwana, pytanie czy warto usuwac ją z cache??
+        po naciśnięciu na nie wyświetlać na cały ekran, ale z ogranieczeniem do wielkości monitora
+
+        -usuwanie zdjęć nie usuwa pliku zdjęcia z /users/{user_id}/posts/{post_id}/photos/{filename}
+        mimo że nie wyświetla go już w poście

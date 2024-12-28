@@ -1,6 +1,4 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.views import View
+from django.http import Http404
 from django.views.generic import (
     TemplateView,
     CreateView,
@@ -103,7 +101,7 @@ class PostDetailView(TextsMixin, DetailView):
 
         return context
 
-class PostEditView(LoginRequiredMixin, UpdateView):
+class PostEditView(TextsMixin, LoginRequiredMixin, UpdateView):
     model = Post
     form_class = PostForm
     template_name = 'blog/post_form.html'
@@ -128,17 +126,12 @@ class PostEditView(LoginRequiredMixin, UpdateView):
         if self.request.POST:
             context['photo_form'] = MultiPhotoUploadForm(self.request.POST, self.request.FILES)
             context['manage_photo_formset'] = self.get_manage_photo_formset(self.request.POST)
-            context['main_photo_form'] = SelectMainPhotoForm(
-                self.request.POST,
-                gallery=gallery
-            )
+
         else:
             context['photo_form'] = MultiPhotoUploadForm()
             context['manage_photo_formset'] = self.get_manage_photo_formset()
-            context['main_photo_form'] = SelectMainPhotoForm(
-                gallery=gallery,
-                initial={'main_photo': gallery.get_main_photo()}
-            )
+
+        context['photos'] = gallery.photos.all()
 
         # Add Google Maps API Key to the context
         context['GOOGLE_MAPS_API_KEY'] = settings.GOOGLE_MAPS_API_KEY
@@ -182,21 +175,18 @@ class PostEditView(LoginRequiredMixin, UpdateView):
                 else:
                     photo.save()
 
+        # Sprawdzanie, czy zostało wybrane nowe zdjęcie główne
+        main_photo_id = self.request.POST.get('photo')
+        if main_photo_id:
+            try:
+                main_photo = Photo.objects.get(id=main_photo_id)
+                main_photo.is_main = True
+                main_photo.save()  # Zapisz zmianę
+            except Photo.DoesNotExist:
+                pass
+
         return super().form_valid(form)
 
-    def post(self, request, *args, **kwargs):
-        response = super().post(request, *args, **kwargs)
-        gallery = self.object.gallery
-
-        # Obsługa wyboru zdjęcia głównego
-        main_photo_form = SelectMainPhotoForm(request.POST, gallery=gallery)
-        if main_photo_form.is_valid():
-            main_photo = main_photo_form.cleaned_data['main_photo']
-            gallery.photos.update(is_main=False)  # Wszystkie zdjęcia przestają być główne
-            main_photo.is_main = True
-            main_photo.save()
-
-        return response
 
     def get_success_url(self):
         # Po zapisaniu, użytkownik zostaje przekierowany na stronę szczegółów posta

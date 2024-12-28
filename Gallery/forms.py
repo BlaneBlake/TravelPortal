@@ -21,14 +21,8 @@ class ManagePhotoForm(forms.ModelForm):
         fields = ['delete']
 
 class SelectMainPhotoForm(forms.Form):
-    main_photo = forms.ModelChoiceField(
-        queryset=None,
-        label=_("Select Main Photo"),
+    photo = forms.ModelChoiceField(
+        queryset=Photo.objects.all(),
+        widget=forms.RadioSelect(attrs={'class': 'photo-radio'}),
         required=True
     )
-
-    def __init__(self, *args, **kwargs):
-        gallery = kwargs.pop('gallery', None)
-        super().__init__(*args, **kwargs)
-        if gallery:
-            self.fields['main_photo'].queryset = gallery.photos.all()

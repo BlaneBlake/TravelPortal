@@ -43,3 +43,20 @@ footer {
     height: 80px; /* Ustawienie wysokości sekcji footer */
     box-sizing: border-box; /* Zapewnienie, że padding jest uwzględniony w wysokości */
 }
+.photo-thumbnails {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+.photo-thumbnail {
+        cursor: pointer;
+    }
+.thumbnail-image {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border: 2px solid transparent;
+    }
+input[type="radio"]:checked + .thumbnail-image {
+        border: 2px solid #007bff;
+    }

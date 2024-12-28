@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'Blog',
     'Gallery',
     'taggit',
+    'imagekit',
 ]
 
 MIDDLEWARE = [
