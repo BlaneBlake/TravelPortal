@@ -53,7 +53,6 @@ footer {
     }
 .thumbnail-image {
         width: 100px;
-        height: 100px;
         object-fit: cover;
         border: 2px solid transparent;
     }

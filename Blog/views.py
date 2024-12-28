@@ -99,6 +99,8 @@ class PostDetailView(TextsMixin, DetailView):
             context['photos'] = []
             context['main_image'] = None
 
+        context['thumbnails'] = [photo.thumbnail.url for photo in context['photos']]
+
         return context
 
 class PostEditView(TextsMixin, LoginRequiredMixin, UpdateView):

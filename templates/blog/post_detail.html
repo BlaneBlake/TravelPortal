@@ -5,7 +5,9 @@
 
   {% if main_image %}
     <div class="main-image">
-      <img src="{{ main_image.image.url }}" alt="Main image for {{ post.title }}">
+      <a href="{{ main_image.image.url }}" target="_blank">
+            <img src="{{ main_image.thumbnail.url }}" alt="Main image for {{ post.title }}">
+          </a>
     </div>
   {% endif %}
 
@@ -23,7 +25,9 @@
     <div class="post-gallery">
       {% for photo in photos %}
         <div class="photo">
-          <img src="{{ photo.image.url }}" alt="{{ photo.caption }}">
+          <a href="{{ photo.image.url }}" target="_blank">
+            <img src="{{ photo.thumbnail.url }}" alt="{{ photo.caption }}">
+          </a>
           {% if photo.caption %}
             <p>{% trans "Caption"%}: {{ photo.caption }}</p>
           {% endif %}

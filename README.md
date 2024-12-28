@@ -65,14 +65,7 @@
 
     - GALERIA:
 
-        -przy tworzeniu miniatur zachować ich proporcje, nadac tylko max szerokość np
- 
-        -po naciśnięciu na nie wyświetlać na cały ekran, ale z ogranieczeniem do wielkości monitora
-
-
-    -SOLVED (do sprawdzenia po czasie)
-        Poniższe po czyszczeniu bazy danych i media wstępnie działa i usuwa pliki z media
-        sprawdzić po czasie
-        -usuwanie zdjęć nie usuwa pliku zdjęcia z dysku, jedynie z bazy danych
-        -dodawanie zdjęć zapisanych na serwerze do wyświetlania w poście jeśli nie ma.
-        -pernamentne usuwanie zdjęć z serwera na etapie edytowania zawartości bazy danych.
+        -SOLVED (do sprawdzenia po czasie)
+            Poniższe po czyszczeniu bazy danych i media wstępnie działa i usuwa pliki z media
+            sprawdzić po czasie
+            -usuwanie zdjęć nie usuwa pliku zdjęcia z dysku, jedynie z bazy danych
