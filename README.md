@@ -57,8 +57,14 @@
             - post z ustawioną lokalizacją na mapie w czasie edycji:
                 wymaga kolejnego ustawienia lokalizacji
                 niech wczytuje tą z bazy danych jeśli to możliwe
+
+            1.gdzie pobrane dane zapisują się do bazy?
+            2.dlaczego pinezka generuje domyślną lokalizację
+
+        -migrować na AdvancedMarkerElement
  
         -niech puste pola zwracają komunikat "do uzupełnienia" w liście postów danego użytkownika
+        
         -możliwość usuwania własnego posta po zalogowaniu (niech usuwa też zdjęcia i galerię)
         
         
