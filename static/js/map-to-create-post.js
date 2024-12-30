@@ -75,23 +75,14 @@ function fetchPlaceDetails(location) {
             console.log('Relevant geocoding result:', relevantResult);
 //
 
-
-
-            let placeUrl = '';
             let placeUrl = '';
             if (relevantResult.plus_code) {
                 // Priorytetowo traktujemy Plus Code
+                const encodedPlusCode = encodeURIComponent(relevantResult.plus_code.global_code);
                 console.log('Using Plus Code:', relevantResult.plus_code.global_code);
-                placeUrl = `https://www.google.com/maps?q=${relevantResult.plus_code.global_code}`;
-            } else if (relevantResult.place_id) {
+                placeUrl = `https://www.google.com/maps?q=${encodedPlusCode}`; // Kodowanie Plus Code
+                        } else if (relevantResult.place_id) {
                 placeUrl = `https://www.google.com/maps/place/?q=place_id:${relevantResult.place_id}`;
-
-//            if (relevantResult.place_id) {
-//                placeUrl = `https://www.google.com/maps/place/?q=place_id:${relevantResult.place_id}`;
-//            } else if (relevantResult.plus_code) {
-//                // Obsługuje sytuację, gdy zwrócony wynik to Plus Code
-//                console.log('Using Plus Code:', relevantResult.plus_code.global_code);
-//                placeUrl = `https://www.google.com/maps?q=${relevantResult.plus_code.global_code}`;
             } else {
                 placeUrl = `https://www.google.com/maps?q=${location.lat()},${location.lng()}`;
             }
@@ -111,24 +102,3 @@ function fetchPlaceDetails(location) {
         }
     });
 }
-
-//            const placeId = relevantResult.place_id;
-//            const placeUrl = placeId
-//                ? `https://www.google.com/maps/place/?q=place_id:${placeId}`
-//                : `https://www.google.com/maps?q=${location.lat()},${location.lng()}`;
-//
-//            document.getElementById('place_name').value = relevantResult.formatted_address || 'Brak danych';
-//            document.getElementById('location_url').value = placeUrl;
-//
-//            console.log('Generated URL:', placeUrl);
-//        } else {
-//            console.error('Geocoding failed or returned no results:', status);
-//
-//            const fallbackUrl = `https://www.google.com/maps?q=${location.lat()},${location.lng()}`;
-//            document.getElementById('place_name').value = 'Nieznane miejsce';
-//            document.getElementById('location_url').value = fallbackUrl;
-//
-//            console.log('Fallback URL:', fallbackUrl);
-//        }
-//    });
-//}
