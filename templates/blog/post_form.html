@@ -49,7 +49,7 @@ long
                           <div class="photo-entry">
                               <div>
                                   {% if form.instance.image %}
-                                      <img src="{{ form.instance.image.url }}" alt="{{ form.instance.caption }}" width="150">
+                                      <img src="{{ form.instance.thumbnail.url }}" alt="{{ form.instance.caption }}" width="150">
                                   {% else %}
                                       <p>No image available</p>
                                   {% endif %}

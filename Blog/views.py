@@ -99,6 +99,8 @@ class PostDetailView(TextsMixin, DetailView):
             context['photos'] = []
             context['main_image'] = None
 
+        context['thumbnails'] = [photo.thumbnail.url for photo in context['photos']]
+
         return context
 
 class PostEditView(TextsMixin, LoginRequiredMixin, UpdateView):
@@ -179,6 +181,7 @@ class PostEditView(TextsMixin, LoginRequiredMixin, UpdateView):
         main_photo_id = self.request.POST.get('photo')
         if main_photo_id:
             try:
+                main_photo = Photo.objects.get(id=main_photo_id)
                 main_photo = Photo.objects.get(id=main_photo_id)
                 main_photo.is_main = True
                 main_photo.save()  # Zapisz zmianę

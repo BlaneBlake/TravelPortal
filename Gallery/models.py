@@ -4,7 +4,7 @@ from django.db import models
 from Blog.models import Post
 from django.utils.translation import gettext_lazy as _
 from imagekit.models import ImageSpecField
-from imagekit.processors import ResizeToFill
+from imagekit.processors import ResizeToFit
 
 from TravelPortal import settings
 
@@ -34,7 +34,7 @@ class Photo(models.Model):
 
     thumbnail = ImageSpecField(
         source='image',
-        processors=[ResizeToFill(100, 100)],  # Zmienia rozmiar na 100x100 px
+        processors=[ResizeToFit(300, 200)],  # Zmienia rozmiar na 100x100 px
         format='JPEG',
         options={'quality': 60},  # Możesz dostosować jakość miniatury
     )
