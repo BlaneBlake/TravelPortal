@@ -182,6 +182,7 @@ class PostEditView(TextsMixin, LoginRequiredMixin, UpdateView):
         if main_photo_id:
             try:
                 main_photo = Photo.objects.get(id=main_photo_id)
+                main_photo = Photo.objects.get(id=main_photo_id)
                 main_photo.is_main = True
                 main_photo.save()  # Zapisz zmianę
             except Photo.DoesNotExist:
