@@ -1336,6 +1336,9 @@ msgstr "Dodaj nowy post"
 msgid "Posts"
 msgstr "Posty"
 
+msgid "Your posts"
+msgstr "Twoje posty"
+
 msgid "No posts to display."
 msgstr "Brak postów do wyświetlenia."
 

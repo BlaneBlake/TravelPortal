@@ -74,35 +74,6 @@ class PostCreateView(TextsMixin, LoginRequiredMixin, CreateView):
 
         return context
 
-class PostListView(TextsMixin, ListView):
-    model = Post
-    template_name = 'blog/post_list.html'
-    context_object_name = 'posts'
-    ordering = ['-created_at']
-
-class PostDetailView(TextsMixin, DetailView):
-    model = Post
-    template_name = 'blog/post_detail.html'
-    context_object_name = 'post'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['tags'] = self.object.tags.all()
-
-        gallery = getattr(self.object, 'gallery', None)
-        if gallery:
-            context['gallery'] = gallery
-            context['photos'] = gallery.photos.all()
-            context['main_image'] = gallery.photos.filter(is_main=True).first() or gallery.photos.first()
-        else:
-            context['gallery'] = None
-            context['photos'] = []
-            context['main_image'] = None
-
-        context['thumbnails'] = [photo.thumbnail.url for photo in context['photos']]
-
-        return context
-
 class PostEditView(TextsMixin, LoginRequiredMixin, UpdateView):
     model = Post
     form_class = PostForm
@@ -194,3 +165,60 @@ class PostEditView(TextsMixin, LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         # Po zapisaniu, użytkownik zostaje przekierowany na stronę szczegółów posta
         return reverse_lazy('Blog:post_detail', kwargs={'pk': self.object.pk})
+
+class PostListView(TextsMixin, ListView):
+    model = Post
+    template_name = 'blog/posts.html'
+    context_object_name = 'posts'
+    ordering = ['-created_at']
+
+class UserPostListView(TextsMixin, LoginRequiredMixin, ListView):
+    model = Post
+    template_name = 'blog/user_posts.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        # Pobiera tylko posty należące do zalogowanego użytkownika
+        return Post.objects.filter(author=self.request.user).order_by('-created_at')
+
+    def calculate_completion_percentage(self, post):
+        total_fields = 4
+        filled_fields = sum(bool(getattr(post, field)) for field in [
+            'title',
+            'content',
+            'estimated_time',
+            'location_url'
+            # dwa poniższe to pola w innej tabeli
+            # 'gallery',
+            # 'tags',
+        ])
+        return int((filled_fields / total_fields) * 100)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        for post in context['posts']:
+            post.completion_percentage = self.calculate_completion_percentage(post)
+        return context
+
+class PostDetailView(TextsMixin, DetailView):
+    model = Post
+    template_name = 'blog/post_detail.html'
+    context_object_name = 'post'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tags'] = self.object.tags.all()
+
+        gallery = getattr(self.object, 'gallery', None)
+        if gallery:
+            context['gallery'] = gallery
+            context['photos'] = gallery.photos.all()
+            context['main_image'] = gallery.photos.filter(is_main=True).first() or gallery.photos.first()
+        else:
+            context['gallery'] = None
+            context['photos'] = []
+            context['main_image'] = None
+
+        context['thumbnails'] = [photo.thumbnail.url for photo in context['photos']]
+
+        return context

@@ -21,12 +21,15 @@ from .views import (
     PostCreateView,
     PostDetailView,
     PostListView,
-    PostEditView)
+    PostEditView,
+    UserPostListView
+)
 
 urlpatterns = [
     path('', HomePageView.as_view(), name='home'),
     path('post/new/', PostCreateView.as_view(), name='post_create'),
-    path('posts/', PostListView.as_view(), name='post_list'),
+    path('post/all-posts', PostListView.as_view(), name='post_list'),
+    path('post/your-posts', UserPostListView.as_view(), name='user_post_list'),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
     path('post/<int:pk>/edit/', PostEditView.as_view(), name='post_edit'),
 
