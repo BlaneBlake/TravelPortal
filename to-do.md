@@ -14,9 +14,13 @@
             -(SOLVED) możliwe tworzenie bez lokalizacji
                 (obecnie ustawiona wartość default przy niewidocznych polach w template),
                 (trzeba w js dodać wartości domyślne w razie niewybrania pola na mapie)
+        !!!!!VVVV!!!!!    
             - post z ustawioną lokalizacją na mapie w czasie edycji:
                 wymaga kolejnego ustawienia lokalizacji
                 niech wczytuje tą z bazy danych jeśli to możliwe
+                JAK ROZWIĄZAĆ PROBLEM PRZECINKA W ZMIENNYCH GEOGRAFICZNYCH?
+                (FILTR W HTMLI FORMAT W SZABLONIE/konwersja w pythonie/format zapisu w js)
+            !!! SPRAWDZIĆ JAKI FORMAT GENERUJE SKRYPT JS
 
         -migrować na AdvancedMarkerElement
 

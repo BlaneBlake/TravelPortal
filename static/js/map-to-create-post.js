@@ -6,6 +6,18 @@ function initMap() {
         zoom: 8
     });
 
+    // Sprawdzenie, czy istnieje już marker na mapie podczas edycji
+    const latitude = parseFloat(document.getElementById('latitude').value);
+    const longitude = parseFloat(document.getElementById('longitude').value);
+
+    // Jeżeli są dane o lokalizacji, ustaw marker w odpowiednim miejscu
+    if (!isNaN(latitude) && !isNaN(longitude)) {
+        const initialLocation = { lat: latitude, lng: longitude };
+        placeMarker(initialLocation);
+        map.setCenter(initialLocation);
+        map.setZoom(15);
+    }
+
     map.addListener('click', (event) => {
         console.log('Map clicked at:', event.latLng);
 
@@ -47,18 +59,32 @@ function initMap() {
 function placeMarker(location) {
     console.log('Placing marker at:', location);
 
+    let lat, lng;
+
+    // Sprawdź, czy location jest obiektem google.maps.LatLng
+    if (location instanceof google.maps.LatLng) {
+        lat = location.lat();
+        lng = location.lng();
+    } else {
+        lat = location.lat;
+        lng = location.lng;
+    }
+
+    const latLng = new google.maps.LatLng(lat, lng);
+
     if (marker) {
-        marker.setPosition(location);
+        marker.setPosition(latLng);
     } else {
         marker = new google.maps.Marker({
-            position: location,
+            position: latLng,
             map: map
         });
     }
 
-    document.getElementById('latitude').value = location.lat();
-    document.getElementById('longitude').value = location.lng();
+    document.getElementById('latitude').value = lat;
+    document.getElementById('longitude').value = lng;
 }
+
 
 function fetchPlaceDetails(location) {
     const geocoder = new google.maps.Geocoder();
@@ -73,7 +99,6 @@ function fetchPlaceDetails(location) {
             ) || results[0];
 
             console.log('Relevant geocoding result:', relevantResult);
-//
 
             let placeUrl = '';
             if (relevantResult.plus_code) {
