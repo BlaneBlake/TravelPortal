@@ -9,6 +9,9 @@
         <a href="{% url 'Blog:post_detail' post.id %}">{{ post.title }}</a>
         - <strong>{{ post.author.username }}</strong>,
         {{ post.created_at|date:"d M Y" }}
+        {% if post.author == user %}
+          <a href="{% url 'Blog:post_edit' pk=post.pk %}">{% trans "Edit post" %}</a>
+        {% endif %}</h2>
       </li>
     {% empty %}
       <li>{% trans "No posts to display" %}</li>
