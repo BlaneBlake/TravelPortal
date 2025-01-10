@@ -54,3 +54,9 @@ class PostForm(forms.ModelForm):
         self.fields['location_url'].required = False
         self.fields['latitude'].required = False
         self.fields['longitude'].required = False
+
+        # Konwersja przecinka na kropkę w wartościach początkowych
+        if self.initial.get('latitude'):
+            self.initial['latitude'] = str(self.initial['latitude']).replace(',', '.')
+        if self.initial.get('longitude'):
+            self.initial['longitude'] = str(self.initial['longitude']).replace(',', '.')

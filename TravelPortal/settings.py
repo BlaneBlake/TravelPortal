@@ -120,20 +120,21 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'pl'
 
-# Lista dostępnych języków
+# Application languages list
 LANGUAGES = [
     ('en', 'English'),
     ('pl', 'Polski')
 ]
 
 
-# Ścieżka do plików tłumaczeń
+# Translate files path
 LOCALE_PATHS = [
-    BASE_DIR / 'locale',  # zakładając, że twój katalog lokalizacji znajduje się w katalogu głównym
+    BASE_DIR / 'locale',
 ]
 
 TIME_ZONE = 'UTC'
 
+# Use django translation system
 USE_I18N = True
 
 USE_TZ = True
