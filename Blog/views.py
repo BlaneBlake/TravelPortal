@@ -1,10 +1,14 @@
+import os
+
 from django.http import Http404
 from django.views.generic import (
     TemplateView,
     CreateView,
     ListView,
     DetailView,
-    UpdateView)
+    UpdateView,
+    DeleteView
+    )
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -165,6 +169,63 @@ class PostEditView(TextsMixin, LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         # Po zapisaniu, użytkownik zostaje przekierowany na stronę szczegółów posta
         return reverse_lazy('Blog:post_detail', kwargs={'pk': self.object.pk})
+
+class PostDeleteView(DeleteView):
+    model = Post
+    template_name = 'blog/post_confirm_delete.html'
+    context_object_name = 'post'
+    success_url = reverse_lazy('Blog:user_post_list')  # Przekierowanie po usunięciu posta
+
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        # Pobierz post
+        post = self.get_object()
+
+        # Najpierw usuń pliki
+        self.remove_files(post)
+
+        # Pobierz galerię powiązaną z postem (jeśli istnieje)
+        if hasattr(post, 'gallery'):
+            gallery = post.gallery
+
+            # Ścieżka do folderu, w którym przechowywane są zdjęcia posta
+            user_folder = os.path.join(settings.MEDIA_ROOT, f'users/{post.author.id}/posts/{post.pk}/photos')
+
+            # Sprawdź, czy folder istnieje i jest pusty, a jeśli tak, usuń go
+            self.remove_empty_folders(user_folder)
+
+        # Wywołaj oryginalną metodę delete, aby usunąć post z bazy danych
+        return super().delete(request, *args, **kwargs)
+
+    def remove_files(self, post):
+        """
+        Usuwanie wszystkich plików powiązanych z postem.
+        """
+        photo_folder = os.path.join(settings.MEDIA_ROOT, f'users/{post.author.id}/posts/{post.pk}/photos')
+        if os.path.isdir(photo_folder):
+            for filename in os.listdir(photo_folder):
+                file_path = os.path.join(photo_folder, filename)
+                if os.path.isfile(file_path):
+                    os.remove(file_path)
+                    print(f'Usunięto plik: {file_path}')
+
+    def remove_empty_folders(self, folder_path):
+        """
+        Usuwanie pustych folderów po usunięciu pliku miniatury.
+        """
+
+        # Sprawdzamy, czy folder jest pusty, a jeśli tak, to go usuwamy
+        if os.path.isdir(folder_path) and not os.listdir(folder_path):
+            os.rmdir(folder_path)  # Usuwamy pusty folder
+            parent_folder = os.path.dirname(folder_path)
+            # Rekurencyjnie sprawdzaj i usuwaj puste foldery wyżej
+            self.remove_empty_folders(parent_folder)
+
 
 class PostListView(TextsMixin, ListView):
     model = Post
