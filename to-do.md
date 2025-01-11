@@ -16,9 +16,6 @@
 
         -niech puste pola zwracają komunikat "do uzupełnienia" w liście postów danego użytkownika
 
-        -możliwość usuwania własnego posta po zalogowaniu (niech usuwa też zdjęcia i galerię)
-
-
         -(SOLVED) możliwe tworzenie bez lokalizacji
             (obecnie ustawiona wartość default przy niewidocznych polach w template),
             (trzeba w js dodać wartości domyślne w razie niewybrania pola na mapie)

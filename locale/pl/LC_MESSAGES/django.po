@@ -1263,6 +1263,9 @@ msgstr "Przydatne odnośniki"
 msgid "Save changes"
 msgstr "Zapisz zmiany"
 
+msgid "Cancel"
+msgstr "Anuluj"
+
 # Authentication:
 
 msgid "Log in"
@@ -1309,6 +1312,15 @@ msgstr "Dodaj post"
 msgid "Edit post"
 msgstr "Edytuj post"
 
+msgid "Delete post"
+msgstr "Usuń post"
+
+msgid "Confirm deletion"
+msgstr "Potwierdź usuwanie"
+
+msgid "Are you sure you want to delete the post"
+msgstr "Jesteś pewien że chcesz usunąć post"
+
 msgid "Title"
 msgstr "Tytuł"
 
@@ -1335,6 +1347,9 @@ msgstr "Dodaj nowy post"
 
 msgid "Posts"
 msgstr "Posty"
+
+msgid "Your posts"
+msgstr "Twoje posty"
 
 msgid "No posts to display."
 msgstr "Brak postów do wyświetlenia."

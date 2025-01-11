@@ -29,6 +29,7 @@
         <a href="{% url 'Authentication:profile' %}">{% trans "User profile" %}</a>
         <a href="{% url 'Blog:post_create' %}">{% trans "Add new post" %}</a>
         <a href="{% url 'Blog:post_list' %}">{% trans "Post list" %}</a>
+        <a href="{% url 'Blog:user_post_list' %}">{% trans "Your posts" %}</a>
     {% else %}
         <a href="{% url 'Blog:post_list' %}">{% trans "Post list" %}</a>
     {% endif %}
