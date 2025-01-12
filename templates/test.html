@@ -1,10 +1,12 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ texts.greeting }}</title>
+    <title>{% trans "Welcome to the homepage" %}</title>
 </head>
 <body>
-    <h1>{{ texts.farewell }}</h1>
-    <p>{{ texts.home }}</p>
+    <h1>{% trans "Welcome" %}</h1>
+    <p>{% trans "Home" %}</p>
+    <h3 style="color:red">{{ test_type }}</h3>
 </body>
 </html>

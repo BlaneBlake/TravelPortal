@@ -6,92 +6,124 @@ function initMap() {
         zoom: 8
     });
 
+    // Sprawdzenie, czy istnieje już marker na mapie podczas edycji
+    const latitude = parseFloat(document.getElementById('latitude').value);
+    const longitude = parseFloat(document.getElementById('longitude').value);
+
+    // Jeżeli są dane o lokalizacji, ustaw marker w odpowiednim miejscu
+    if (!isNaN(latitude) && !isNaN(longitude)) {
+        const initialLocation = { lat: latitude, lng: longitude };
+        placeMarker(initialLocation);
+        map.setCenter(initialLocation);
+        map.setZoom(15);
+    }
+
     map.addListener('click', (event) => {
+        console.log('Map clicked at:', event.latLng);
+
         placeMarker(event.latLng);
-        fetchPlaceDetails(event.latLng);
+        fetchPlaceDetails(event.latLng); // Generowanie linku dla pinezki
     });
 
-//
-    // Utworzenie pola wyszukiwania jako elementu HTML
     const input = document.createElement('input');
     input.id = 'searchInput';
     input.type = 'text';
     input.placeholder = 'Wyszukaj miejsce';
 
-    // Dodanie pola wyszukiwania do mapy jako kontrolki
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
 
-     // Inicjalizacja autouzupełniania miejsc na podstawie inputu
     autocomplete = new google.maps.places.Autocomplete(input);
-    autocomplete.bindTo('bounds', map);  // Związanie autouzupełniania z granicami mapy
+    autocomplete.bindTo('bounds', map);
 
     autocomplete.addListener('place_changed', () => {
         const place = autocomplete.getPlace();
+        console.log('Place selected:', place);
 
         if (!place.geometry || !place.geometry.location) {
+            console.error('Place has no geometry or location.');
             window.alert("Nie znaleziono miejsca");
             return;
         }
-//
-//    // Inicjalizacja autouzupełniania miejsc
-//    const input = document.getElementById('searchInput');
-//    autocomplete = new google.maps.places.Autocomplete(input);
-//    autocomplete.bindTo('bounds', map);  // Związanie autouzupełniania z granicami mapy
-//
-//    autocomplete.addListener('place_changed', () => {
-//        const place = autocomplete.getPlace();
-//
-//        if (!place.geometry || !place.geometry.location) {
-//            window.alert("Nie znaleziono miejsca");
-//            return;
-//        }
 
-        // Zaktualizowanie mapy i markera dla wybranego miejsca
         placeMarker(place.geometry.location);
         map.setCenter(place.geometry.location);
-        map.setZoom(15);  // Zoom do poziomu detali
+        map.setZoom(15);
 
-        // Ustawianie szczegółów miejsca
         document.getElementById('latitude').value = place.geometry.location.lat();
         document.getElementById('longitude').value = place.geometry.location.lng();
         document.getElementById('place_name').value = place.name;
         document.getElementById('location_url').value = `https://www.google.com/maps/place/?q=place_id:${place.place_id}`;
     });
-
-//
 }
 
 function placeMarker(location) {
+    console.log('Placing marker at:', location);
+
+    let lat, lng;
+
+    // Sprawdź, czy location jest obiektem google.maps.LatLng
+    if (location instanceof google.maps.LatLng) {
+        lat = location.lat();
+        lng = location.lng();
+    } else {
+        lat = location.lat;
+        lng = location.lng;
+    }
+
+    const latLng = new google.maps.LatLng(lat, lng);
+
     if (marker) {
-        marker.setPosition(location);
+        marker.setPosition(latLng);
     } else {
         marker = new google.maps.Marker({
-            position: location,
+            position: latLng,
             map: map
         });
     }
-    document.getElementById('latitude').value = location.lat();
-    document.getElementById('longitude').value = location.lng();
+
+    document.getElementById('latitude').value = lat;
+    document.getElementById('longitude').value = lng;
 }
+
 
 function fetchPlaceDetails(location) {
     const geocoder = new google.maps.Geocoder();
-    const service = new google.maps.places.PlacesService(map);
 
-    geocoder.geocode({ 'location': location }, (results, status) => {
-        if (status === 'OK') {
-            if (results[0]) {
-                const placeId = results[0].place_id;
-                const placeUrl = `https://www.google.com/maps/place/?q=place_id:${placeId}`;
-                document.getElementById('location_url').value = placeUrl;
+    geocoder.geocode({ location }, (results, status) => {
+        console.log('Geocoding input:', location);
 
-                service.getDetails({ placeId: placeId }, (place, status) => {
-                    if (status === google.maps.places.PlacesServiceStatus.OK) {
-                        document.getElementById('place_name').value = place.name;
+        if (status === 'OK' && results.length > 0) {
+            const relevantResult = results.find(result =>
+                result.types.includes('street_address') ||
+                result.types.includes('route')
+            ) || results[0];
 
-                    }
-                });
+            console.log('Relevant geocoding result:', relevantResult);
+
+            let placeUrl = '';
+            if (relevantResult.plus_code) {
+                // Priorytetowo traktujemy Plus Code
+                const encodedPlusCode = encodeURIComponent(relevantResult.plus_code.global_code);
+                console.log('Using Plus Code:', relevantResult.plus_code.global_code);
+                placeUrl = `https://www.google.com/maps?q=${encodedPlusCode}`; // Kodowanie Plus Code
+                        } else if (relevantResult.place_id) {
+                placeUrl = `https://www.google.com/maps/place/?q=place_id:${relevantResult.place_id}`;
+            } else {
+                placeUrl = `https://www.google.com/maps?q=${location.lat()},${location.lng()}`;
             }
+
+            document.getElementById('place_name').value = relevantResult.formatted_address || 'Brak danych';
+            document.getElementById('location_url').value = placeUrl;
+
+            console.log('Generated URL:', placeUrl);
+        } else {
+            console.error('Geocoding failed or returned no results:', status);
+
+            const fallbackUrl = `https://www.google.com/maps?q=${location.lat()},${location.lng()}`;
+            document.getElementById('place_name').value = 'Nieznane miejsce';
+            document.getElementById('location_url').value = fallbackUrl;
+
+            console.log('Fallback URL:', fallbackUrl);
         }
     });
 }

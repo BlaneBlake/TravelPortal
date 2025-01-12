@@ -12,6 +12,10 @@ from TravelPortal.mixins.context_mixins import TextsMixin
 
 # Create your views here.
 
+class Test(View):
+    def get(self, request):
+        return HttpResponse('test działania autoryzacji')
+
 class CustomLoginView(TextsMixin, LoginView):
     template_name = 'registration/login.html'
 
@@ -32,8 +36,3 @@ class UserProfileView(LoginRequiredMixin, TextsMixin, DetailView):
 
     def get_object(self, queryset=None):
         return self.request.user
-
-
-class Test(View):
-    def get(self, request):
-        return HttpResponse('test działania autoryzacji')

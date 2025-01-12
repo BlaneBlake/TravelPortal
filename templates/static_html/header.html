@@ -1,5 +1,6 @@
+{% load i18n %}
 
 <header>
     <h1>{{ texts.site.name|default:"No texts available" }}</h1>
-    <p><a href="{% url 'Blog:home' %}">{{ texts.home }}</a></p>
+    <p><a href="{% url 'Blog:home' %}">{% trans "Home" %}</a></p>
 </header>

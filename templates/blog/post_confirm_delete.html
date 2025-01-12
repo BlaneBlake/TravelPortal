@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+  <h2>{% trans "Confirm deletion" %}</h2>
+  <p>{% trans "Are you sure you want to delete the post" %}: "{{ post.title }}"?</p>
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="post" value="{{ post.pk }}">
+    <button type="submit">{% trans "Delete post" %}</button>
+  </form>
+
+  <a href="{% url 'Blog:post_detail' pk=post.pk %}">{% trans "Cancel" %}</a>
+{% endblock %}

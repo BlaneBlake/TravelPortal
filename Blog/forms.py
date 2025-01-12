@@ -1,10 +1,11 @@
 from datetime import timedelta
 
 from django import forms
-from .models import Post, PostImage
+from .models import Post
 from taggit.forms import TagWidget
 
 from TravelPortal.settings import TEXTS
+from django.utils.translation import gettext_lazy as _
 
 class PostForm(forms.ModelForm):
 
@@ -12,7 +13,6 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ['title',
                   'content',
-                  'main_image',
                   'tags',
                   'location_url',
                   # 'place_name',
@@ -24,14 +24,13 @@ class PostForm(forms.ModelForm):
             'latitude': forms.HiddenInput(),
             'longitude': forms.HiddenInput(),
             'location_url': forms.HiddenInput(),
-            'estimated_time': forms.TextInput(attrs={'placeholder': TEXTS["form"]["post"]["enterEstimatedTime"]}),
+            'estimated_time': forms.Select(choices=[(timedelta(hours = i), f"{i} {_('hours')}") for i in range(1, 25)]),
         }
         labels = {
-            'title': TEXTS["form"]["post"]["title"],
-            'content': TEXTS["form"]["post"]["content"],
-            'main_image': TEXTS["form"]["post"]["mainImage"],
-            'tags': TEXTS["form"]["post"]["tags"],
-            'estimated_time': TEXTS["form"]["post"]["estimatedTime"],
+            'title': _('Title'),
+            'content': _('Content'),
+            'tags': _('tags'),
+            'estimated_time': _('Estimated time'),
         }
 
         def clean_estimated_time(self):
@@ -44,14 +43,20 @@ class PostForm(forms.ModelForm):
                     hours, minutes = map(int, estimated_time.split(':'))
                     return timedelta(hours=hours, minutes=minutes)
                 except ValueError:
-                    raise forms.ValidationError(TEXTS["form"]["post"]["estimatedTimeValidationError"])
+                    raise forms.ValidationError(_('Correct the format to HH:MM'))
 
             return estimated_time
 
-class PostImageForm(forms.ModelForm):
-    class Meta:
-        model = PostImage
-        fields = ['image']
-        labels = {
-            'image': TEXTS["form"]["post"]["photo"],
-        }
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Ustawienie ukrytych pól jako opcjonalnych
+        self.fields['location_url'].required = False
+        self.fields['latitude'].required = False
+        self.fields['longitude'].required = False
+
+        # Konwersja przecinka na kropkę w wartościach początkowych
+        if self.initial.get('latitude'):
+            self.initial['latitude'] = str(self.initial['latitude']).replace(',', '.')
+        if self.initial.get('longitude'):
+            self.initial['longitude'] = str(self.initial['longitude']).replace(',', '.')
